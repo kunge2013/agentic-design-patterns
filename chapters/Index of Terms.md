@@ -125,21 +125,21 @@
 * 分块(Chunking) - 第 14 章：知识检索（RAG）
 * 清晰性和具体性(Clarity and Specificity) - 附录 A
 * 客户端 Agent(Client Agent) - 第 15 章：Agent 间通信（A2A）
-* 代码生成(Code Generation) - 第 1 章：提示链，第 4 章：反思
+* 代码生成(Code Generation) - 第 1 章：提示词链，第 4 章：反思
 * 代码提示(Code Prompting) - 附录 A
 * CoD（辩论链）(CoD, Chain of Debates) - 第 17 章：推理技术
 * CoT（思维链）(CoT, Chain of Thought) - 第 17 章：推理技术，附录 A
 * 协作(Collaboration) - 第 7 章：多智能体协作
 * 合规性(Compliance) - 第 19 章：评估与监控
 * 简洁性(Conciseness) - 附录 A
-* 内容生成(Content Generation) - 第 1 章：提示链，第 4 章：反思
-* 上下文工程(Context Engineering) - 第 1 章：提示链
+* 内容生成(Content Generation) - 第 1 章：提示词链，第 4 章：反思
+* 上下文工程(Context Engineering) - 第 1 章：提示词链
 * 上下文窗口(Context Window) - 术语表
 * 上下文修剪与摘要(Contextual Pruning &amp; Summarization) - 第 16 章：资源感知优化
 * 上下文提示(Contextual Prompting) - 附录 A
 * 承包商模型(Contractor Model) - 第 19 章：评估与监控
 * ConversationBufferMemory(ConversationBufferMemory) - 第 8 章：记忆管理
-* 对话式 Agent(Conversational Agents) - 第 1 章：提示链，第 4 章：反思
+* 对话式 Agent(Conversational Agents) - 第 1 章：提示词链，第 4 章：反思
 * 成本敏感探索(Cost-Sensitive Exploration) - 第 16 章：资源感知优化
 * CrewAI(CrewAI) - 第 3 章：并行化，第 5 章：工具使用，第 6 章：规划，第 7 章：多智能体协作，第 18 章：护栏/安全模式，附录 C
 * 批评 Agent(Critique Agent) - 第 16 章：资源感知优化
@@ -148,7 +148,7 @@
 
 **D**
 
-* 数据提取(Data Extraction) - 第 1 章：提示链
+* 数据提取(Data Extraction) - 第 1 章：提示词链
 * 数据标注(Data Labeling) - 第 13 章：人机协同
 * 数据库集成(Database Integration) - 第 10 章：模型上下文协议（MCP）
 * DatabaseSessionService(DatabaseSessionService) - 第 8 章：记忆管理
@@ -241,8 +241,8 @@
 
 **L**
 
-* LangChain(LangChain) - 第 1 章：提示链，第 2 章：路由，第 3 章：并行化，第 4 章：反思，第 5 章：工具使用，第 8 章：记忆管理，第 20 章：优先级排序，附录 C
-* LangGraph(LangGraph) - 第 1 章：提示链，第 2 章：路由，第 3 章：并行化，第 4 章：反思，第 5 章：工具使用，第 8 章：记忆管理，附录 C
+* LangChain(LangChain) - 第 1 章：提示词链，第 2 章：路由，第 3 章：并行化，第 4 章：反思，第 5 章：工具使用，第 8 章：记忆管理，第 20 章：优先级排序，附录 C
+* LangGraph(LangGraph) - 第 1 章：提示词链，第 2 章：路由，第 3 章：并行化，第 4 章：反思，第 5 章：工具使用，第 8 章：记忆管理，附录 C
 * 延迟监控(Latency Monitoring) - 第 19 章：评估与监控
 * 学习资源分配策略(Learned Resource Allocation Policies) - 第 16 章：资源感知优化
 * 学习与适应(Learning and Adaptation) - 第 9 章：学习与适应
@@ -304,7 +304,7 @@
 * 近端策略优化(Proximal Policy Optimization, PPO) - 第 9 章：学习与适应
 * Project Astra(Project Astra) - 附录 B
 * 提示词(Prompt) - 术语表
-* 提示链(Prompt Chaining) - 第 1 章：提示链
+* 提示词链(Prompt Chaining) - 第 1 章：提示词链
 * 提示工程(Prompt Engineering) - 附录 A
 * 推送通知(Push Notifications) - 第 15 章：Agent 间通信（A2A）
 
@@ -359,7 +359,7 @@
 * 后退提示(Step-Back Prompting) - 附录 A
 * 流式更新(Streaming Updates) - 第 15 章：Agent 间通信（A2A）
 * 结构化日志(Structured Logging) - 第 18 章：护栏/安全模式
-* 结构化输出(Structured Output) - 第 1 章：提示链，附录 A
+* 结构化输出(Structured Output) - 第 1 章：提示词链，附录 A
 * SuperAGI(SuperAGI) - 附录 C
 * 监督微调(Supervised Fine-Tuning, SFT) - 术语表
 * 监督学习(Supervised Learning) - 第 9 章：学习与适应

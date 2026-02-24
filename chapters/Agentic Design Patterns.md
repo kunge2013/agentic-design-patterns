@@ -13,7 +13,7 @@
 
 ## 第一部分：核心模式（103 页）
 
-1. [提示链](Chapter%201_%20Prompt%20Chaining.md)（12 页）
+1. [提示词链](Chapter%201_%20Prompt%20Chaining.md)（12 页）
 2. [路由决策](Chapter%202_%20Routing.md)（13 页）
 3. [并行执行](Chapter%203_%20Parallelization.md)（15 页）
 4. [反思优化](Chapter%204_%20Reflection.md)（13 页）
