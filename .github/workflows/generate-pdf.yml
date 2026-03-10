@@ -296,6 +296,9 @@ jobs:
         process_and_append "Glossary.md" "bi_glossary"
         process_and_append "Index of Terms.md" "bi_index"
         process_and_append "Frequently Asked Questions_ Agentic Design Patterns.md" "bi_faq"
+        process_and_append "Glossary.md" "bi_glossary"
+        process_and_append "Index of Terms.md" "bi_index"
+        process_and_append "Frequently Asked Questions_ Agentic Design Patterns.md" "bi_faq"
 
     - name: Generate PDF (Bilingual)
       run: |
