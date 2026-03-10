@@ -9,315 +9,57 @@
   
   <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-      line-height: 1.6;
-      color: #24292e;
-    }
-    
-    .page-header {
-      background-color: #159957;
-      background-image: linear-gradient(120deg, #155799, #159957);
-      padding: 0.5rem 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .project-name {
-      margin-top: 0;
-      margin-bottom: 0;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #fff;
-    }
-    
-    .project-tagline {
-      margin: 0;
-      font-weight: normal;
-      opacity: 0.8;
-      font-size: 0.8rem;
-      color: #fff;
-    }
-    
-    .main-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-      display: flex;
-      gap: 2rem;
-    }
-    
-    .sidebar {
-      width: 280px;
-      flex-shrink: 0;
-    }
-    
-    .sidebar nav {
-      position: sticky;
-      top: 20px;
-      max-height: calc(100vh - 40px); /* Viewport height minus top offset and some padding */
-      overflow-y: auto;
-    }
-    
-    .post-nav {
-      margin-top: 3rem;
-      display: flex;
-      justify-content: space-between;
-      border-top: 1px solid #eee;
-      padding-top: 1rem;
-    }
-    
-    .post-nav a {
-      color: #0366d6;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    
-    .post-nav a:hover {
-      text-decoration: underline;
-    }
-    
-    .sidebar h3 {
-      margin-top: 1.5rem;
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
-      color: #0366d6;
-    }
-    
-    .sidebar ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
-    
-    .sidebar li {
-      margin: 0.3rem 0;
-    }
-    
-    .sidebar a {
-      color: #24292e;
-      text-decoration: none;
-      display: block;
-      padding: 0.25rem 0;
-    }
-    
-    .sidebar a:hover {
-      color: #0366d6;
-      text-decoration: underline;
-    }
-    
-    .content {
-      flex: 1;
-      min-width: 0;
-    }
-    
-    .content img {
-      max-width: 100%;
-      height: auto;
-    }
-    
-    .content pre {
-      padding: 1rem;
-      background-color: #f6f8fa;
-      border-radius: 6px;
-      overflow-x: auto;
-    }
-    
-    .content code {
-      background-color: #f6f8fa;
-      padding: 0.2em 0.4em;
-      border-radius: 3px;
-      font-size: 85%;
-    }
-    
-    .content pre code {
-      background-color: transparent;
-      padding: 0;
-    }
-    
-    .btn {
-      display: inline-block;
-      margin-bottom: 1rem;
-      color: rgba(255, 255, 255, 0.9);
-      background-color: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.2);
-      border-style: solid;
-      border-width: 1px;
-      border-radius: 0.3rem;
-      padding: 0.75rem 1rem;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-    
-    .btn:hover {
-      color: rgba(255, 255, 255, 1);
-      background-color: rgba(255, 255, 255, 0.2);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .language-toggle {
-      margin-bottom: 0;
-    }
-
-    .language-btn {
-      background-color: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.3);
-      font-weight: 500;
-    }
-
-    .header-controls .btn {
-      padding: 0;
-      width: 42px;
-      height: 42px;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      line-height: 1;
-    }
-
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1.6; color: #24292e; }
+    .page-header { background-color: #159957; background-image: linear-gradient(120deg, #155799, #159957); padding: 0.5rem 1rem; position: sticky; top: 0; z-index: 10; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+    .project-name { margin: 0; font-size: 1.5rem; font-weight: bold; color: #fff; }
+    .project-tagline { margin: 0; font-weight: normal; opacity: 0.8; font-size: 0.8rem; color: #fff; }
+    .main-content { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; display: flex; gap: 2rem; }
+    .sidebar { width: 280px; flex-shrink: 0; }
+    .sidebar nav { position: sticky; top: 20px; max-height: calc(100vh - 40px); overflow-y: auto; }
+    .post-nav { margin-top: 3rem; display: flex; justify-content: space-between; border-top: 1px solid #eee; padding-top: 1rem; }
+    .post-nav a { color: #0366d6; text-decoration: none; font-weight: bold; }
+    .post-nav a:hover { text-decoration: underline; }
+    .sidebar h3 { margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.1rem; color: #0366d6; }
+    .sidebar ul { list-style: none; padding-left: 0; margin: 0; }
+    .sidebar li { margin: 0.3rem 0; }
+    .sidebar a { color: #24292e; text-decoration: none; display: block; padding: 0.25rem 0; }
+    .sidebar a:hover { color: #0366d6; text-decoration: underline; }
+    .content { flex: 1; min-width: 0; }
+    .content img { max-width: 100%; height: auto; }
+    .content pre { padding: 1rem; background-color: #f6f8fa; border-radius: 6px; overflow-x: auto; }
+    .content code { background-color: #f6f8fa; padding: 0.2em 0.4em; border-radius: 3px; font-size: 85%; }
+    .content pre code { background-color: transparent; padding: 0; }
+    .btn { display: inline-block; margin-bottom: 1rem; color: rgba(255, 255, 255, 0.9); background-color: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); border-style: solid; border-width: 1px; border-radius: 0.3rem; padding: 0.75rem 1rem; text-decoration: none; transition: all 0.2s; }
+    .btn:hover { color: rgba(255, 255, 255, 1); background-color: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.3); }
+    .language-toggle { margin-bottom: 0; }
+    .language-btn { background-color: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.3); font-weight: 500; }
+    .header-controls .btn { padding: 0; width: 42px; height: 42px; display: inline-flex; justify-content: center; align-items: center; line-height: 1; }
     /* Dark Mode Styles */
-    body.dark-mode {
-      background-color: #0d1117;
-      color: #c9d1d9;
-    }
-
-    body.dark-mode .sidebar a {
-      color: #c9d1d9;
-    }
-
-    body.dark-mode .sidebar a:hover,
-    body.dark-mode .sidebar h3,
-    body.dark-mode .post-nav a,
-    body.dark-mode .content a {
-      color: #58a6ff;
-    }
-
-    body.dark-mode .content pre,
-    body.dark-mode .content code {
-      background-color: #161b22;
-      color: #c9d1d9;
-    }
-
-    body.dark-mode .post-nav {
-      border-top-color: #30363d;
-    }
-
-    /* Scrollbar styles for dark mode */
-    body.dark-mode ::-webkit-scrollbar {
-      width: 12px;
-    }
-
-    body.dark-mode ::-webkit-scrollbar-track {
-      background: #0d1117;
-    }
-
-    body.dark-mode ::-webkit-scrollbar-thumb {
-      background-color: #30363d;
-      border-radius: 6px;
-      border: 3px solid #0d1117;
-    }
-
-    body.dark-mode ::-webkit-scrollbar-corner {
-      background: #0d1117;
-    }
-
-    .header-controls .btn svg {
-      width: 24px;
-      height: 24px;
-      fill: #fff;
-    }
-
-    .header-controls .btn .sun-icon,
-    .header-controls .btn .moon-icon {
-      fill: none;
-    }
-
-    .language-btn:hover {
-      background-color: rgba(255, 255, 255, 0.25);
-      border-color: rgba(255, 255, 255, 0.4);
-    }
-    
-    .header-title {
-      text-align: left;
-    }
-    
-    .header-controls {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .page-header .btn {
-      margin-bottom: 0;
-    }
-
-    .sidebar-toggle-btn {
-      display: none;
-      background-color: transparent;
-      border: none;
-      padding: 0.5rem;
-      margin-right: 0.5rem;
-      cursor: pointer;
-    }
-    .sidebar-toggle-btn .icon-bar {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background-color: #fff;
-      border-radius: 1px;
-    }
-    .sidebar-toggle-btn .icon-bar + .icon-bar {
-      margin-top: 4px;
-    }
-    
+    body.dark-mode { background-color: #0d1117; color: #c9d1d9; }
+    body.dark-mode .sidebar a { color: #c9d1d9; }
+    body.dark-mode .sidebar a:hover, body.dark-mode .sidebar h3, body.dark-mode .post-nav a, body.dark-mode .content a { color: #58a6ff; }
+    body.dark-mode .content pre, body.dark-mode .content code { background-color: #161b22; color: #c9d1d9; }
+    body.dark-mode .post-nav { border-top-color: #30363d; }
+    .header-controls .btn svg { width: 24px; height: 24px; fill: #fff; }
+    .header-controls .btn .sun-icon, .header-controls .btn .moon-icon { fill: none; }
+    .language-btn:hover { background-color: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.4); }
+    .header-title { text-align: left; }
+    .header-controls { display: flex; align-items: center; gap: 1rem; }
+    .page-header .btn { margin-bottom: 0; }
+    .sidebar-toggle-btn { display: none; background-color: transparent; border: none; padding: 0.5rem; margin-right: 0.5rem; cursor: pointer; }
+    .sidebar-toggle-btn .icon-bar { display: block; width: 22px; height: 2px; background-color: #fff; border-radius: 1px; }
+    .sidebar-toggle-btn .icon-bar + .icon-bar { margin-top: 4px; }
     @media screen and (max-width: 768px) {
-      .sidebar-toggle-btn {
-        display: block;
-      }
-      .main-content {
-        flex-direction: column;
-      }
-      
-      .sidebar {
-        width: 100%;
-        display: none;
-      }
-
-      .sidebar.is-visible {
-        display: block;
-      }
-      
-      .sidebar nav {
-        position: static;
-        max-height: none; /* Reset max-height for mobile view */
-        overflow-y: visible;
-      }
-
-      .page-header {
-        justify-content: flex-start;
-      }
-
-      .project-name {
-        font-size: 1.2rem;
-      }
-      
-      .project-tagline {
-        display: none;
-      }
-
-      .header-controls {
-        gap: 0.5rem;
-      }
-
-      .header-controls .btn {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.8rem;
-      }
+      .sidebar-toggle-btn { display: block; }
+      .main-content { flex-direction: column; }
+      .sidebar { width: 100%; display: none; }
+      .sidebar.is-visible { display: block; }
+      .sidebar nav { position: static; max-height: none; overflow-y: visible; }
+      .page-header { justify-content: flex-start; }
+      .project-name { font-size: 1.2rem; }
+      .project-tagline { display: none; }
+      .header-controls { gap: 0.5rem; }
+      .header-controls .btn { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
     }
   </style>
 </head>
@@ -344,7 +86,7 @@
       </div>
       {% if site.github.is_project_page %}
         <a href="{{ site.github.repository_url }}" class="btn" title="View on GitHub">
-          <svg xmlns="http://wwwsvg.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
         </a>
       {% endif %}
     </div>
@@ -358,6 +100,9 @@
       <nav id="nav-en" class="navigation-content" style="display: none;">
         {% include navigation-en.html %}
       </nav>
+      <nav id="nav-bilingual" class="navigation-content" style="display: none;">
+        {% include navigation-bilingual.html %}
+      </nav>
     </aside>
     
     <main class="content" role="main">
@@ -366,15 +111,12 @@
       {%- if page.path contains 'original/' -%}
         {%- assign pages = site.pages | where_exp: "item", "item.path contains 'original/'" -%}
       {%- else -%}
-        {%- assign pages = site.pages | where_exp: "item", "item.path contains 'chapters/'" -%}
+        {%- if page.path contains 'bilingual/' -%}
+          {%- assign pages = site.pages | where_exp: "item", "item.path contains 'bilingual/'" -%}
+        {%- else -%}
+          {%- assign pages = site.pages | where_exp: "item", "item.path contains 'chapters/'" -%}
+        {%- endif -%}
       {%- endif -%}
-
-      {%- comment -%}
-        Build numeric-sorted chapter list without plugins:
-        - extract number from path like "Chapter 4_ ..." using split + last + split
-        - zero-pad single-digit numbers to ensure proper lexical sort
-        - create entries "NN||<url>", sort them, then map back to page objects
-      {%- endcomment -%}
 
       {%- assign chapter_entries = "" | split: "" -%}
       {%- assign other_pages = "" | split: "" -%}
@@ -415,7 +157,6 @@
       {%- endfor -%}
       {%- assign pages = sorted_pages -%}
 
-      
       {%- assign prev_index = current_index | minus: 1 -%}
       {%- assign next_index = current_index | plus: 1 -%}
 
@@ -432,7 +173,7 @@
         <div>
           {% if prev_page %}
             <a href="{{ prev_page.url | relative_url }}">
-              {% if page.path contains 'original/' %}
+              {% if page.path contains 'original/' or page.path contains 'bilingual/' %}
                 &laquo; Previous: {{ prev_page.title }}
               {% else %}
                 &laquo; 上一章: {{ prev_page.title }}
@@ -443,7 +184,7 @@
         <div>
           {% if next_page %}
             <a href="{{ next_page.url | relative_url }}">
-              {% if page.path contains 'original/' %}
+              {% if page.path contains 'original/' or page.path contains 'bilingual/' %}
                 Next: {{ next_page.title }} &raquo;
               {% else %}
                 下一章: {{ next_page.title }} &raquo;
@@ -457,14 +198,12 @@
   </div>
 
   <script>
-    // Language toggle functionality
     document.addEventListener('DOMContentLoaded', function() {
       // Theme toggle functionality
       const themeToggle = document.getElementById('themeToggle');
       const sunIcon = document.querySelector('.sun-icon');
       const moonIcon = document.querySelector('.moon-icon');
       
-      // Check for saved theme preference or system preference
       const savedTheme = localStorage.getItem('theme');
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       
@@ -481,7 +220,6 @@
         localStorage.setItem('theme', theme);
       };
       
-      // Initialize theme
       setTheme(savedTheme || systemTheme);
       
       if (themeToggle) {
@@ -512,44 +250,58 @@
         window.addEventListener('resize', updateSidebarNavTop);
       }
 
+      // Language toggle functionality with three states (zh -> en -> bilingual -> zh)
       const languageToggle = document.getElementById('languageToggle');
       const navZh = document.getElementById('nav-zh');
       const navEn = document.getElementById('nav-en');
+      const navBilingual = document.getElementById('nav-bilingual');
       const pathname = window.location.pathname;
 
-      // Determine current language from URL path
       const isEnglish = pathname.startsWith('/original/');
+      const isBilingual = pathname.startsWith('/bilingual/');
 
-      // Set initial UI state based on language
-      if (isEnglish) {
+      if (isBilingual) {
+        navZh.style.display = 'none';
+        navEn.style.display = 'none';
+        navBilingual.style.display = 'block';
+        languageToggle.textContent = '中';
+      } else if (isEnglish) {
         navZh.style.display = 'none';
         navEn.style.display = 'block';
-        languageToggle.textContent = '中';
+        navBilingual.style.display = 'none';
+        languageToggle.textContent = '双';
       } else {
         navZh.style.display = 'block';
         navEn.style.display = 'none';
+        navBilingual.style.display = 'none';
         languageToggle.textContent = 'En';
       }
 
-      // Add click event listener to toggle button
       if (languageToggle) {
         languageToggle.addEventListener('click', function() {
             const currentPath = window.location.pathname;
             const isEnglish = currentPath.startsWith('/original/');
-            // Handle root path, which might be '/' or '/index.html'
+            const isBilingual = currentPath.startsWith('/bilingual/');
             const isRoot = currentPath === '/' || currentPath === '/index.html';
 
             let newUrl;
 
-            if (isEnglish) {
-                // Switch to Chinese
-                if (currentPath === '/original/' || currentPath === '/original/index.html') {
+            if (isBilingual) {
+                // Switch from bilingual to Chinese
+                if (isRoot) {
                     newUrl = '/';
                 } else {
-                    newUrl = currentPath.replace('/original/', '/chapters/');
+                    newUrl = currentPath.replace('/bilingual/', '/chapters/');
+                }
+            } else if (isEnglish) {
+                // Switch from English to bilingual
+                if (currentPath === '/original/' || currentPath === '/original/index.html') {
+                    newUrl = '/bilingual/';
+                } else {
+                    newUrl = currentPath.replace('/original/', '/bilingual/');
                 }
             } else {
-                // Switch to English
+                // Switch from Chinese to English
                 if (isRoot) {
                     newUrl = '/original/';
                 } else {
@@ -557,29 +309,23 @@
                 }
             }
             
-            // If URL is unchanged (e.g. a non-content page like /CONTRIBUTING.html), go to the other language's homepage.
             if (newUrl === currentPath) {
-               newUrl = isEnglish ? '/' : '/original/';
+               newUrl = isBilingual ? '/' : (isEnglish ? '/bilingual/' : '/original/');
             }
 
             window.location.href = newUrl;
         });
       }
 
-      // Fix README markdown links to work with Jekyll
       function fixMarkdownLinks() {
         const contentArea = document.querySelector('.content');
         if (contentArea) {
           const links = contentArea.querySelectorAll('a[href*=".md"]');
           links.forEach(function(link) {
             let href = link.getAttribute('href');
-            // Only process relative links to markdown files
             if (href && !href.startsWith('http') && href.includes('.md')) {
-              // Remove .md extension
               href = href.replace(/\.md$/, '');
-              // Decode URL encoded characters for cleaner URLs
               href = decodeURIComponent(href);
-              // Ensure it starts with proper base path
               if (!href.startsWith('/')) {
                 href = '/' + href;
               }
@@ -589,7 +335,6 @@
         }
       }
       
-      // Initial link fix
       fixMarkdownLinks();
     });
   </script>
