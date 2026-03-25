@@ -3,13 +3,18 @@
 演示多步骤信息处理：文本提取、摘要、实体提取、知识库搜索和报告生成
 """
 import os
-from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
+from llm_config import create_llm
 
-# 初始化语言模型
-llm = ChatOpenAI(temperature=0.7)
+# 初始化语言模型（支持自定义API配置）
+try:
+    llm = create_llm(temperature=0.7)
+    print("✓ LLM初始化成功")
+except Exception as e:
+    print(f"✗ LLM初始化失败: {e}")
+    exit(1)
 
 # --- 步骤 1：文本提取 ---
 prompt_extract_text = ChatPromptTemplate.from_template(

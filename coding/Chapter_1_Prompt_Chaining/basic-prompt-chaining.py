@@ -3,15 +3,34 @@
 演示使用 LangChain 构建简单的两步链：信息提取和JSON转换
 """
 import os
-from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from llm_config import create_llm, get_default_llm_config
 
-# 为了更好的安全性，从环境变量加载API密钥
-# 确保设置了 OPENAI_API_KEY 环境变量
+# 初始化语言模型（支持自定义API配置）
+# 通过环境变量配置：
+# export OPENAI_API_KEY="your-api-key"
+# export OPENAI_API_URL="https://your-api-endpoint"  # 可选，默认为OpenAI
+# export OPENAI_MODEL="gpt-3.5-turbo"  # 可选
+# export OPENAI_TEMPERATURE="0"  # 可选
 
-# 初始化语言模型
-llm = ChatOpenAI(temperature=0)
+# 也可以直接指定配置：
+# llm = create_llm(
+#     api_key="your-api-key",
+#     api_url="https://your-api-endpoint",
+#     model="your-model",
+#     temperature=0
+# )
+
+try:
+    llm = create_llm(temperature=0)
+    print("✓ LLM初始化成功")
+except Exception as e:
+    print(f"✗ LLM初始化失败: {e}")
+    print("\n请配置环境变量：")
+    print("  export OPENAI_API_KEY='your-api-key'")
+    print("  export OPENAI_API_URL='https://your-api-endpoint'  # 可选")
+    exit(1)
 
 # --- 提示词 1：提取信息 ---
 prompt_extract = ChatPromptTemplate.from_template(
@@ -38,8 +57,12 @@ full_chain = (
 # --- 运行链 ---
 input_text = "新款笔记本电脑型号配备 3.5 GHz 八核处理器、16GB 内存和 1TB NVMe 固态硬盘。"
 
+print("\n=== 基础 Prompt Chaining 示例 ===")
+print(f"输入文本: {input_text}\n")
+
 # 使用输入文本字典执行链。
 final_result = full_chain.invoke({"text_input": input_text})
 
 print("\n--- 最终 JSON 输出 ---")
 print(final_result)
+print("\n=== 示例完成 ===")
