@@ -1,0 +1,216 @@
+{
+  "main": {
+    "id": "29a3a19aff9f8180",
+    "type": "split",
+    "children": [
+      {
+        "id": "2a0a8203370f964c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "62eb621014442745",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "chapters/Chapter 1_ Prompt Chaining.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Chapter 1_ Prompt Chaining"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "426179a5db7bdc09",
+    "type": "split",
+    "children": [
+      {
+        "id": "ce2044c76c932228",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ac1e31b922e0a422",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "0214a448a3136c25",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "60ccb5038a2c8355",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "c6d938d254091d8f",
+    "type": "split",
+    "children": [
+      {
+        "id": "69d14e156094d629",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8f33e8f4a4333f33",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "chapters/Chapter 1_ Prompt Chaining.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Chapter 1_ Prompt Chaining 的反向链接列表"
+            }
+          },
+          {
+            "id": "bc3678a277ba3311",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "chapters/Chapter 1_ Prompt Chaining.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Chapter 1_ Prompt Chaining 的出链列表"
+            }
+          },
+          {
+            "id": "1e4ad5425102ec90",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "1ca2f9cf5d4ea483",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "2d0f553b707db69a",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "chapters/Chapter 1_ Prompt Chaining.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Chapter 1_ Prompt Chaining 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "62eb621014442745",
+  "lastOpenFiles": [
+    "coding/Chapter_1_Prompt_Chaining/information-processing-workflow.py",
+    "coding/Chapter_1_Prompt_Chaining/basic-prompt-chaining.py",
+    "coding/Chapter_1_Prompt_Chaining/requirements.txt",
+    "coding/Chapter_1_Prompt_Chaining",
+    "coding",
+    "CLAUDE.md",
+    "condig",
+    "chapters/Appendix G -  Coding agents.md",
+    "chapters/Appendix F  - Under the Hood_ An Inside Look at the Agents' Reasoning Engines.md",
+    "chapters/Chapter 17_ Reasoning Techniques.md",
+    "chapters/Chapter 16_ Resource-Aware Optimization.md",
+    "chapters/Chapter 15_ Inter-Agent Communication (A2A).md",
+    "chapters/Chapter 14_ Knowledge Retrieval (RAG).md",
+    "chapters/Chapter 13_ Human-in-the-Loop.md",
+    "chapters/Chapter 12_ Exception Handling and Recovery.md",
+    "chapters/Chapter 11_ Goal Setting and Monitoring.md",
+    "chapters/Chapter 10_ Model Context Protocol (MCP).md",
+    "chapters/Chapter 9_ Learning and Adaptation.md",
+    "chapters/Chapter 8_ Memory Management.md",
+    "chapters/Chapter 7_ Multi-Agent Collaboration.md",
+    "chapters/Chapter 6_ Planning.md",
+    "chapters/Chapter 5_ Tool Use.md",
+    "chapters/Chapter 4_ Reflection.md",
+    "chapters/Chapter 3_ Parallelization.md",
+    "chapters/Chapter 2_ Routing.md",
+    "chapters/Agentic Design Patterns.md",
+    "chapters/Chapter 1_ Prompt Chaining.md"
+  ]
+}
