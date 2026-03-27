@@ -11,12 +11,12 @@ from llm_config import create_llm
 
 # 初始化语言模型（支持自定义API配置）
 try:
-    llm_coding = create_llm(model="gpt-4", temperature=0.2)  # 使用GPT-4用于代码生成
-    llm_review = create_llm(model="gpt-4", temperature=0.1)  # 低温用于一致性代码审查
+    llm_coding = create_llm(model="qwen-plus", temperature=0.2)  # 使用qwen-plus用于代码生成
+    llm_review = create_llm(model="qwen-plus", temperature=0.1)  # 低温用于一致性代码审查
     print("✓ LLM初始化成功")
 except Exception as e:
     print(f"✗ LLM初始化失败: {e}")
-    print("提示：代码生成推荐使用GPT-4，如果没有访问权限，请修改model参数")
+    print("提示：代码生成推荐使用qwen-plus，如果没有访问权限，请修改model参数")
     exit(1)
 
 # --- 步骤 1：需求理解和大纲生成 ---
@@ -168,8 +168,6 @@ def code_development_pipeline(requirement: str, max_iterations: int = 2) -> Dict
     print("\n--- 步骤 5：文档和测试生成 ---")
     docs_tests_chain = prompt_generate_docs_tests | llm_coding | StrOutputParser()
     final_code = docs_tests_chain.invoke({"code": current_code})
-
-})
 
     result["final_code"] = final_code
 
