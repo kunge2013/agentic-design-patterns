@@ -5,6 +5,11 @@ API配置模块
 import os
 from typing import Optional
 from langchain_openai import ChatOpenAI
+import httpx
+
+# 禁用代理，避免代理配置问题
+os.environ['NO_PROXY'] = '*'
+os.environ['no_proxy'] = '*'
 
 class LLMConfig:
     """LLM配置类"""
@@ -45,15 +50,19 @@ class LLMConfig:
         创建ChatOpenAI实例
 
         Args:
-            **override_params: 覆盖默认配置的参数
+            **override_params: 覆盖盖默认配置的参数
 
         Returns:
             ChatOpenAI实例
         """
+        # 创建不使用代理的http_client
+        http_client = httpx.Client(timeout=30.0)
+
         params = {
             "api_key": self.api_key,
             "model": override_params.get("model", self.model),
             "temperature": override_params.get("temperature", self.temperature),
+            "http_client": http_client,
             **self.extra_kwargs
         }
 
@@ -87,38 +96,38 @@ class LLMConfigs:
     )
 
     # OpenAI GPT-4
-    OPENAI_GPT4 = LLMConfig(
-        model="gpt-4",
-        temperature=0.7
-    )
+    # OPENAI_GPT4 = LLMConfig(
+    #     model="gpt-4",
+    #     temperature=0.7
+    # )
 
-    # 智谱AI（GLM-4）示例配置
-    ZHIPU_AI = LLMConfig(
-        model="glm-4",
-        temperature=0.7,
-        api_url="https://open.bigmodel.cn/api/paas/v4/"
-    )
+    # # 智谱AI（GLM-4）示例配置
+    # ZHIPU_AI = LLMConfig(
+    #     model="glm-4",
+    #     temperature=0.7,
+    #     api_url="https://open.bigmodel.cn/api/paas/v4/"
+    # )
 
-    # 阿里云通义千问示例配置
-    QWEN = LLMConfig(
-        model="qwen-turbo",
-        temperature=0.7,
-        api_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
-    )
+    # # 阿里云通义千问示例配置
+    # QWEN = LLMConfig(
+    #     model="qwen-turbo",
+    #     temperature=0.7,
+    #     api_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+    # )
 
-    # 百度文心一言示例配置
-    ERNIE = LLMConfig(
-        model="ERNIE-Bot-4",
-        temperature=0.7,
-        api_url="https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat"
-    )
+    # # 百度文心一言示例配置
+    # ERNIE = LLMConfig(
+    #     model="ERNIE-Bot-4",
+    #     temperature=0.7,
+    #     api_url="https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat"
+    # )
 
-    # 月之暗面 Kimi 示例配置
-    KIMI = LLMConfig(
-        model="moonshot-v1-8k",
-        temperature=0.7,
-        api_url="https://api.moonshot.cn/v1"
-    )
+    # # 月之暗面 Kimi 示例配置
+    # KIMI = LLMConfig(
+    #     model="moonshot-v1-8k",
+    #     temperature=0.7,
+    #     api_url="https://api.moonshot.cn/v1"
+    # )
 
 
 def get_default_llm_config() -> "LLMConfig":
@@ -153,12 +162,12 @@ def get_default_llm_config() -> "LLMConfig":
         )
 
 
-# 快捷函数
+# 快捷捷捷函数
 def create_llm(
     api_key: Optional[str] = None,
     api_url: Optional[str] = None,
-    model: str = "gpt-3.5-turbo",
-    temperature: float = 0.7,
+    model: Optional[str] = None,
+    temperature: Optional[float] = None,
     **kwargs
 ) -> ChatOpenAI:
     """
@@ -167,14 +176,26 @@ def create_llm(
     Args:
         api_key: API密钥，默认从环境变量读取
         api_url: API地址，默认从环境变量读取
-        model: 模型名称
-        temperature: 温度参数
-        **kwargs: 其他参数
+        model: 模型名称，默认从环境变量 OPENAI_MODEL 读取，否则为 gpt-3.5-turbo
+        temperature: 温度参数，默认从环境变量 OPENAI_TEMPERATURE 读取，否则为 0.7
+        **kwargs:: 其他参数
 
     Returns:
         ChatOpenAI实例
     """
-    config = LLMConfig(api_key=api_key, api_url=api_url, model=model, temperature=temperature, **kwargs)
+    # 如果没有提供参数，从环境变量读取默认值
+    final_api_key = api_key or os.getenv("OPENAI_API_KEY")
+    final_api_url = api_url or os.getenv("OPENAI_API_URL") or os.getenv("OPENAI_API_BASE")
+    final_model = model or os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
+    final_temperature = temperature if temperature is not None else float(os.getenv("OPENAI_TEMPERATURE", "0.7"))
+
+    config = LLMConfig(
+        api_key=final_api_key,
+        api_url=final_api_url,
+        model=final_model,
+        temperature=final_temperature,
+        **kwargs
+    )
     return config.create_llm()
 
 
@@ -193,7 +214,7 @@ if __name__ == "__main__":
 
     # 打印预设配置（不实际创建LLM）
     LLMConfigs.OPENAI.print_config()
-    print()
-    LLMConfigs.ZHIPU_AI.print_config()
-    print()
-    LLMConfigs.QWEN.print_config()
+    # print()
+    # LLMConfigs.ZHIPU_AI.print_config()
+    # print()
+    # LLMConfigs.QWEN.print_config()
