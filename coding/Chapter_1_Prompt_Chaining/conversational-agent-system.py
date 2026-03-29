@@ -24,7 +24,7 @@ prompt_intent_extraction = ChatPromptTemplate.from_template(
     "- 意图（intent）：用户的目的是什么？\n"
     "- 实体（entities）：提取的关键信息（日期、地点、人名、数量等）\n"
     "- 情绪（sentiment）：正面、负面或中性\n\n"
-    "以JSON格式返回：{{'intent': '...', 'entities': {...}, 'sentiment': '...'}}"
+    "以JSON格式返回：{{'intent': '...', 'entities': {{...}}, 'sentiment': '...'}}"
 )
 
 # --- 步骤 2：状态更新和响应生成 ---

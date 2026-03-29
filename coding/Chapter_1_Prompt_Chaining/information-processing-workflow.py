@@ -51,26 +51,34 @@ summarization_chain = prompt_summarize | llm | StrOutputParser()
 entity_extraction_chain = prompt_extract_entities | llm | StrOutputParser()
 knowledge_search_chain = prompt_search_knowledge | llm | StrOutputParser()
 
-# 完整的信息处理流程
-information_processing_chain = (
-    {
-        "text": text_extraction_chain,
-        "document": RunnablePassthrough()
-    }
-    | {
-        "summary": summarization_chain,
-        "entities": entity_extraction_chain,
-        "text": RunnablePassthrough()
-    }
-    | {
-        "search_results": knowledge_search_chain,
-        "summary": lambda x: x["summary"],
-        "entities": lambda x: x["entities"]
-    }
-    | prompt_generate_report
-    | llm
-    | StrOutputParser()
-)
+# 完整的信息处理流程（分步执行更清晰）
+def process_information(document: str) -> str:
+    """执行完整的信息处理流程"""
+
+    print("步骤 1：文本提取")
+    text = (prompt_extract_text | llm | StrOutputParser()).invoke({"document": document})
+    print(f"提取的文本（前100字）：{text[:100]}...\n")
+
+    print("步骤 2：摘要生成")
+    summary = (prompt_summarize | llm | StrOutputParser()).invoke({"text": text})
+    print(f"摘要：{summary}\n")
+
+    print("步骤 3：实体提取")
+    entities = (prompt_extract_entities | llm | StrOutputParser()).invoke({"text": text})
+    print(f"实体：{entities}\n")
+
+    print("步骤 4：知识库搜索")
+    search_results = (prompt_search_knowledge | llm | StrOutputParser()).invoke({"entities": entities})
+    print(f"搜索结果：{search_results}\n")
+
+    print("步骤 5：生成报告")
+    report = (prompt_generate_report | llm | StrOutputParser()).invoke({
+        "summary": summary,
+        "entities": entities,
+        "search_results": search_results
+    })
+
+    return report
 
 # --- 运行示例 ---
 sample_document = """
@@ -80,5 +88,5 @@ CEO蒂姆·库克宣布了新一代的iPhone产品线，带来了多项创新功
 """
 
 print("--- 信息处理工作流 ---")
-final_report = information_processing_chain.invoke({"document": sample_document})
+final_report = process_information(sample_document)
 print(final_report)

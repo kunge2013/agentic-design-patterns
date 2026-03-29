@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "chapters/Chapter 1_ Prompt Chaining.md",
+                "file": "coding/Chapter_2_Routing/Chapter_2_Routing_SUMMARY.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter 1_ Prompt Chaining"
+              "title": "Chapter_2_Routing_SUMMARY"
             }
           }
         ]
@@ -185,18 +185,23 @@
   },
   "active": "62eb621014442745",
   "lastOpenFiles": [
-    "coding/Chapter_1_Prompt_Chaining/llm_config.py",
+    "coding/Chapter_3_Parallelization_SUMMARY.md",
+    "coding/Chapter_3_Parallelization_SUMMARY.md.tmp.33989.1774599533730",
+    "coding/Chapter_3_Parallelization/README.md",
+    "coding/Chapter_3_Parallelization/README.md.tmp.33989.1774599404551",
+    "coding/Chapter_3_Parallelization/2-google-adk-parallel-example.py",
+    "coding/Chapter_3_Parallelization/2-google-adk-parallel-example.py.tmp.33989.1774599353445",
+    "coding/Chapter_3_Parallelization/1-langchain-parallel-example.py",
+    "coding/Chapter_3_Parallelization/1-langchain-parallel-example.py.tmp.33989.1774599308221",
+    "coding/Chapter_3_Parallelization",
     "coding/Chapter_1_Prompt_Chaining/README.md",
-    "coding/Chapter_1_Prompt_Chaining/code-generation-refinement.py",
-    "coding/Chapter_1_Prompt_Chaining/conversational-agent-system.py",
-    "coding/Chapter_1_Prompt_Chaining/content-generation-workflow.py",
-    "coding/Chapter_1_Prompt_Chaining/data-extraction-transformation.py",
-    "coding/Chapter_1_Prompt_Chaining/complex-query-answering.py",
-    "coding/Chapter_1_Prompt_Chaining/information-processing-workflow.py",
-    "coding/Chapter_1_Prompt_Chaining/basic-prompt-chaining.py",
-    "coding/Chapter_1_Prompt_Chaining/requirements.txt",
-    "coding/Chapter_1_Prompt_Chaining",
-    "coding",
+    "coding/Chapter_1_Prompt_Chaining/Chapter_1_Prompt_Chaining_SUMMARY.md",
+    "coding/Chapter_1_Prompt_Chaining/Chapter_1_Prompt_Chaining_SUMMARY.md.tmp.8050.1774598161472",
+    "coding/Chapter_2_Routing/Chapter_2_Routing_SUMMARY.md",
+    "coding/Chapter_2_Routing/Chapter_2_Routing_SUMMARY.md.tmp.8050.1774597613205",
+    "chapters/Chapter 2_ Routing.md",
+    "coding/Chapter_2_Routing/05-hybrid-routing-system.py.tmp.88012.1774593740185",
+    "chapters/Chapter 1_ Prompt Chaining.md",
     "CLAUDE.md",
     "chapters/Appendix G -  Coding agents.md",
     "chapters/Appendix F  - Under the Hood_ An Inside Look at the Agents' Reasoning Engines.md",
@@ -215,8 +220,6 @@
     "chapters/Chapter 5_ Tool Use.md",
     "chapters/Chapter 4_ Reflection.md",
     "chapters/Chapter 3_ Parallelization.md",
-    "chapters/Chapter 2_ Routing.md",
-    "chapters/Agentic Design Patterns.md",
-    "chapters/Chapter 1_ Prompt Chaining.md"
+    "chapters/Agentic Design Patterns.md"
   ]
 }

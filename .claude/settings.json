@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la *.py)",
+      "Bash(python 02-rule-based-routing.py)",
+      "Read(//home/fk/workspace/github/agentic-design-design-patterns/coding/Chapter_2_Routing/**)",
+      "Read(//home/fk/workspace/workspace/github/agentic-design-patterns/coding/Chapter_3_Parallelization/**)"
+    ],
+    "additionalDirectories": [
+      "/home/fk/workspace/github/agentic-design-patterns/coding"
+    ]
+  }
+}
