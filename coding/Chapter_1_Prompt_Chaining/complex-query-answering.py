@@ -43,27 +43,6 @@ prompt_synthesize = ChatPromptTemplate.from_template(
 
 # 构建处理链
 decompose_chain = prompt_decompose | llm | StrOutputParser()
-causes_research_chain = prompt_research_causes | llm | StrOutputParser()
-response_research_chain = prompt_research_response | llm | StrOutputParser()
-
-# 完整的复杂查询处理流程
-complex_query_chain = (
-    {
-        "subquery_1": lambda x: "1929年股市崩盘的主要原因",
-        "subquery_2": lambda x: "政府如何应对1929年股市崩盘",
-        "original_query": lambda x: x["query"],
-        "query": lambda x: x["query"]
-    }
-    | {
-        "causes_research": causes_research_chain,
-        "response_research": response_research_chain,
-        "original_query": lambda x: x["original_query"]
-    }
-    | prompt_syn
-thesize
-    | llm
-    | StrOutputParser()
-)
 
 # --- 运行示例 ---
 complex_query = "1929年股市崩盘的主要原因是什么，政府政策如何应对？"
@@ -77,7 +56,27 @@ print("问题分解：")
 print(decomposition)
 print("\n" + "="*80 + "\n")
 
-# 执行完整链
-final_answer = complex_query_chain.invoke({"query": complex_query})
+# 研究原因
+causes_research = (prompt_research_causes | llm | StrOutputParser()).invoke({
+    "subquery_1": "1929年股市崩盘的主要原因"
+})
+print("原因研究：")
+print(causes_research)
+print("\n" + "="*80 + "\n")
+
+# 研究政策响应
+response_research = (prompt_research_response | llm | StrOutputParser()).invoke({
+    "subquery_2": "政府如何应对1929年股市崩盘"
+})
+print("政策响应研究：")
+print(response_research)
+print("\n" + "="*80 + "\n")
+
+# 综合答案
+final_answer = (prompt_synthesize | llm | StrOutputParser()).invoke({
+    "original_query": complex_query,
+    "causes_research": causes_research,
+    "response_research": response_research
+})
 print("综合答案：")
 print(final_answer)
