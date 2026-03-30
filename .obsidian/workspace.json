@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "coding/Chapter_2_Routing/Chapter_2_Routing_SUMMARY.md",
+                "file": "coding/Chapter_3_Parallelization/Chapter_3_Parallelization_SUMMARY.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter_2_Routing_SUMMARY"
+              "title": "Chapter_3_Parallelization_SUMMARY"
             }
           }
         ]
@@ -185,6 +185,7 @@
   },
   "active": "62eb621014442745",
   "lastOpenFiles": [
+    "coding/Chapter_2_Routing/Chapter_2_Routing_SUMMARY.md",
     "coding/Chapter_3_Parallelization_SUMMARY.md",
     "coding/Chapter_3_Parallelization_SUMMARY.md.tmp.33989.1774599533730",
     "coding/Chapter_3_Parallelization/README.md",
@@ -197,7 +198,6 @@
     "coding/Chapter_1_Prompt_Chaining/README.md",
     "coding/Chapter_1_Prompt_Chaining/Chapter_1_Prompt_Chaining_SUMMARY.md",
     "coding/Chapter_1_Prompt_Chaining/Chapter_1_Prompt_Chaining_SUMMARY.md.tmp.8050.1774598161472",
-    "coding/Chapter_2_Routing/Chapter_2_Routing_SUMMARY.md",
     "coding/Chapter_2_Routing/Chapter_2_Routing_SUMMARY.md.tmp.8050.1774597613205",
     "chapters/Chapter 2_ Routing.md",
     "coding/Chapter_2_Routing/05-hybrid-routing-system.py.tmp.88012.1774593740185",
