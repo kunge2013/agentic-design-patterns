@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "chapters/Chapter 11_ Goal Setting and Monitoring.md",
+                "file": "chapters/Chapter 7_ Multi-Agent Collaboration.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter 11_ Goal Setting and Monitoring"
+              "title": "Chapter 7_ Multi-Agent Collaboration"
             }
           }
         ]
@@ -185,17 +185,22 @@
   },
   "active": "62eb621014442745",
   "lastOpenFiles": [
-    "coding/Chapter_6_Planning/__pycache__/3-research-planning-agent.cpython-310.pyc",
-    "coding/Chapter_6_Planning/__pycache__/2-simple-planning-agent.cpython-310.pyc",
-    "coding/Chapter_6_Planning/__pycache__/1-crewai-planning.cpython-310.pyc",
-    "coding/Chapter_6_Planning/__pycache__",
-    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774968168284",
-    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774968130087",
-    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774968078728",
-    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774968029746",
-    "coding/Chapter_6_Planning/3-research-planning-agent.py.tmp.60135.1774967727234",
-    "coding/Chapter_6_Planning/2-simple-planning-agent.py.tmp.60135.1774967609182",
-    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774967583198",
+    "coding/Chapter_7_Multi_Agent_Collaboration/__pycache__/5_comprehensive_system.cpython-310.pyc",
+    "coding/Chapter_7_Multi_Agent_Collaboration/__pycache__",
+    "coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py.tmp.94209.1774969976157",
+    "coding/Chapter_7_Multi_Agent_Collaboration_SUMMARY.md.tmp.94209.1774969909083",
+    "coding/Chapter_7_Multi_Agent_Collaboration_SUMMARY.md",
+    "coding/Chapter_7_Multi_Agent_Collaboration_SUMMARY.md.tmp.94209.1774969857634",
+    "coding/Chapter_7_Multi_Agent_Collaboration/README.md",
+    "coding/Chapter_7_Multi_Agent_Collaboration/README.md.tmp.94209.1774969636617",
+    "coding/Chapter_7_Multi_Agent_Collaboration/requirements.txt",
+    "coding/Chapter_7_Multi_Agent_Collaboration/requirements.txt.tmp.94209.1774969552967",
+    "coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py",
+    "coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py.tmp.94209.1774969536960",
+    "coding/Chapter_7_Multi_Agent_Collaboration/4_critic_reviewer.py",
+    "chapters/Chapter 20_ Prioritization.md",
+    "chapters/Chapter 13_ Human-in-the-Loop.md",
+    "chapters/Chapter 11_ Goal Setting and Monitoring.md",
     "chapters/Chapter 10_ Model Context Protocol (MCP).md",
     "chapters/Chapter 9_ Learning and Adaptation.md",
     "chapters/Chapter 8_ Memory Management.md",
@@ -215,11 +220,6 @@
     "chapters/Chapter 1_ Prompt Chaining.md",
     "CLAUDE.md",
     "chapters/Appendix G -  Coding agents.md",
-    "chapters/Appendix F  - Under the Hood_ An Inside Look at the Agents' Reasoning Engines.md",
-    "chapters/Chapter 17_ Reasoning Techniques.md",
-    "chapters/Chapter 16_ Resource-Aware Optimization.md",
-    "chapters/Chapter 15_ Inter-Agent Communication (A2A).md",
-    "chapters/Chapter 14_ Knowledge Retrieval (RAG).md",
-    "chapters/Chapter 13_ Human-in-the-Loop.md"
+    "chapters/Appendix F  - Under the Hood_ An Inside Look at the Agents' Reasoning Engines.md"
   ]
 }

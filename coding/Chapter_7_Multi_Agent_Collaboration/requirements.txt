@@ -1,0 +1,21 @@
+# 多智能体协作模式依赖包
+
+# LangChain核心包
+langchain>=0.1.0
+langchain-openai>=0.0.20
+langchain-community>=0.0.10
+
+# OpenAI API
+openai>=1.0.0
+
+# 环境变量管理
+python-dotenv>=1.0.0
+
+# HTTP客户端
+httpx>=0.25.0
+
+# 异步支持
+aiohttp>=3.9.0
+
+# 其他工具包
+typing-extensions>=4.8.0
