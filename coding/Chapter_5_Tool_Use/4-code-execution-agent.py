@@ -24,7 +24,12 @@ import json
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import tool as langchain_tool
-from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain.agents import create_agent
+import httpx
+
+# 禁用代理，避免代理配置问题
+os.environ['NO_PROXY'] = '*'
+os.environ['no_proxy'] = '*'
 
 # --- 配置 ---
 load_dotenv()
@@ -34,16 +39,23 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 if not os.getenv("OPENAI_API_KEY"):
     os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter your OpenAI API key: ")
 
+# 使用 .env 中的配置
+model_name = os.getenv("OPENAI_MODEL", "qwen-plus")
+api_url = os.getenv("OPENAI_API_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
+
 try:
-    llm = ChatOpenAI(model="gpt-4o", temperature=0.2)
+    llm = ChatOpenAI(
+        model=model_name,
+        temperature=0.2,
+        base_url=api_url if api_url else None
+    )
     print(f"✅ 语言模型已初始化：{llm.model}")
 except Exception as e:
     print(f"🛑 初始化语言模型时出错：{e}")
     llm = None
 
 # --- 1. 安全代码执行工具 ---
-@langchain_tool
-def execute_python_code(code: str) -> Dict[str, Any]:
+def _execute_python_code_internal(code: str) -> Dict[str, Any]:
     """
     在安全的沙盒环境中执行 Python 代码并返回结果。
     支持基本的数学计算、数据处理和简单的操作。
@@ -107,9 +119,11 @@ def execute_python_code(code: str) -> Dict[str, Any]:
 
     return result
 
+# 创建工具包装
+execute_python_code = langchain_tool(_execute_python_code_internal)
+
 # --- 2. 数学计算工具 ---
-@langchain_tool
-def calculate_math(expression: str) -> Dict[str, Any]:
+def _calculate_math_internal(expression: str) -> Dict[str, Any]:
     """
     计算数学表达式并返回结果。
     支持基本的数学运算和常见数学函数。
@@ -148,6 +162,8 @@ def calculate_math(expression: str) -> Dict[str, Any]:
         result["success"] = False
 
     return result
+
+calculate_math = langchain_tool(_calculate_math_internal)
 
 # --- 3. 数据分析工具 ---
 @langchain_tool
@@ -255,21 +271,20 @@ tools = [
 
 # --- 创建代码执行智能体 ---
 if llm:
-    agent_prompt = ChatPromptTemplate.from_messages([
-        ("system", """你是一个强大的计算和数据分析助手，你可以：
+    system_prompt = """你是一个强大的计算和数据分析助手，你可以：
         1. 编写和执行 Python 代码
         2. 进行数学计算
         3. 对数据进行统计分析
         4. 分析文本数据
 
         在回答问题时，请使用适当的工具进行精确计算和分析。
-        对于计算任务，优先使用代码执行工具以确保准确性。"""),
-        ("human", "{input}"),
-        ("placeholder", "{agent_scratchpad}"),
-    ])
+        对于计算任务，优先使用代码执行工具以确保准确性。"""
 
-    agent = create_tool_calling_agent(llm, tools, agent_prompt)
-    agent_executor = AgentExecutor(agent=agent, verbose=True, tools=tools)
+    agent = create_agent(
+        llm,
+        tools,
+        system_prompt=system_prompt
+    )
 
 def run_code_execution_queries():
     """
@@ -291,8 +306,12 @@ def run_code_execution_queries():
     for query in queries:
         print(f"\n💻 查询：{query}")
         try:
-            response = agent_executor.invoke({"input": query})
-            print(f"📊 结果：{response['output']}")
+            response = agent.invoke({"messages": [("user", query)]})
+            last_message = response["messages"][-1]
+            if hasattr(last_message, 'content'):
+                print(f"📊 结果：{last_message.content}")
+            else:
+                print(f"📊 结果：{last_message}")
         except Exception as e:
             print(f"🛑 查询出错：{e}")
         print("-" * 40)
@@ -315,19 +334,19 @@ output = {
     "average": sum(data) / len(data)
 }
 """
-    result = execute_python_code(code)
+    result = _execute_python_code_internal(code)
     print(f"✅ 代码执行结果：{result}")
 
     # 演示数学计算
     print("\n🔢 测试数学计算")
     math_expr = "math.sqrt(16) + pow(2, 3)"
-    result = calculate_math(math_expr)
+    result = _calculate_math_internal(math_expr)
     print(f"✅ 计算结果：{result}")
 
     # 演示统计分析
     print("\n📈 测试统计分析")
     test_data = [23, 45, 67, 89, 34, 56, 78, 12, 90, 45]
-    result = analyze_statistics(test_data)
+    result = _analyze_statistics_internal(test_data)
     print(f"✅ 统计分析结果：{json.dumps(result, indent=2, ensure_ascii=False)}")
 
 if __name__ == "__main__":

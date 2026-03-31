@@ -4,7 +4,12 @@
       "Bash(ls -la *.py)",
       "Bash(python 02-rule-based-routing.py)",
       "Read(//home/fk/workspace/github/agentic-design-design-patterns/coding/Chapter_2_Routing/**)",
-      "Read(//home/fk/workspace/workspace/github/agentic-design-patterns/coding/Chapter_3_Parallelization/**)"
+      "Read(//home/fk/workspace/workspace/github/agentic-design-patterns/coding/Chapter_3_Parallelization/**)",
+      "Bash(/home/fk/miniconda3/envs/agentic-design-patterns/bin/python -c \"import langchain.agents; print\\(dir\\(langchain.agents\\)\\)\")",
+      "Bash(/home/fk/miniconda3/envs/agentic-design-patterns/bin/python -c \"import langchain.agents.factory; print\\(dir\\(langchain.agents.factory\\)\\)\")",
+      "Bash(/home/fk/miniconda3/envs/agentic-design-patterns/bin/python -c \"import langchain; print\\(langchain.__version__\\)\")",
+      "Bash(/home/fk/miniconda3/envs/agentic-design-patterns/bin/python -c \"from langchain.agents import create_agent; import inspect; print\\(inspect.signature\\(create_agent\\)\\)\")",
+      "Bash(/home/fk/miniconda3/envs/agentic-design-patterns/bin/python -c \"from langchain.agents import create_agent; import inspect; help\\(create_agent\\)\")"
     ],
     "additionalDirectories": [
       "/home/fk/workspace/github/agentic-design-patterns/coding"

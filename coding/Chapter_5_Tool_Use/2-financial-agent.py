@@ -22,7 +22,12 @@ import logging
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import tool as langchain_tool
-from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain.agents import create_agent
+import httpx
+
+# 禁用代理，避免代理配置问题
+os.environ['NO_PROXY'] = '*'
+os.environ['no_proxy'] = '*'
 
 # --- 配置 ---
 load_dotenv()
@@ -32,8 +37,16 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 if not os.getenv("OPENAI_API_KEY"):
     os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter your OpenAI API key: ")
 
+# 使用 .env 中的配置
+model_name = os.getenv("OPENAI_MODEL", "qwen-plus")
+api_url = os.getenv("OPENAI_API_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
+
 try:
-    llm = ChatOpenAI(model="gpt-4o", temperature=0.2)
+    llm = ChatOpenAI(
+        model=model_name,
+        temperature=0.2,
+        base_url=api_url if api_url else None
+    )
     print(f"✅ 语言模型已初始化：{llm.model}")
 except Exception as e:
     print(f"🛑 初始化语言模型时出错：{e}")
@@ -143,21 +156,20 @@ tools = [
 
 # --- 创建金融分析智能体 ---
 if llm:
-    agent_prompt = ChatPromptTemplate.from_messages([
-        ("system", """你是一个专业的金融分析师助手。你可以：
+    system_prompt = """你是一个专业的金融分析师助手。你可以：
         1. 查询股票价格
         2. 计算投资回报率
         3. 提供投资建议
         4. 分析市场情绪
 
         在回答用户问题时，请使用适当的工具来获取最新的数据和分析。
-        总是提供有数据支撑的准确答案，并提醒用户这是模拟数据。"""),
-        ("human", "{input}"),
-        ("placeholder", "{agent_scratchpad}"),
-    ])
+        总是提供有数据支撑的准确答案，并提醒用户这是模拟数据。"""
 
-    agent = create_tool_calling_agent(llm, tools, agent_prompt)
-    agent_executor = AgentExecutor(agent=agent, verbose=True, tools=tools)
+    agent = create_agent(
+        llm,
+        tools,
+        system_prompt=system_prompt
+    )
 
 def run_financial_analysis_queries():
     """
@@ -180,8 +192,13 @@ def run_financial_analysis_queries():
     for query in queries:
         print(f"\n📊 查询：{query}")
         try:
-            response = agent_executor.invoke({"input": query})
-            print(f"📈 回答：{response['output']}")
+            response = agent.invoke({"messages": [("user", query)]})
+            # 获取最后一个消息的内容
+            last_message = response["messages"][-1]
+            if hasattr(last_message, 'content'):
+                print(f"📈 回答：{last_message.content}")
+            else:
+                print(f"📈 回答：{last_message}")
         except Exception as e:
             print(f"🛑 查询出错：{e}")
         print("-" * 40)

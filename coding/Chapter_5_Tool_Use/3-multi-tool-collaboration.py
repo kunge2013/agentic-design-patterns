@@ -25,7 +25,12 @@ import json
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import tool as langchain_tool
-from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain.agents import create_agent
+import httpx
+
+# 禁用代理，避免代理配置问题
+os.environ['NO_PROXY'] = '*'
+os.environ['no_proxy'] = '*'
 
 # --- 配置 ---
 load_dotenv()
@@ -35,8 +40,16 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 if not os.getenv("OPENAI_API_KEY"):
     os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter your OpenAI API key: ")
 
+# 使用 .env 中的配置
+model_name = os.getenv("OPENAI_MODEL", "qwen-plus")
+api_url = os.getenv("OPENAI_API_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
+
 try:
-    llm = ChatOpenAI(model="gpt-4o", temperature=0.2)
+    llm = ChatOpenAI(
+        model=model_name,
+        temperature=0.2,
+        base_url=api_url if api_url else None
+    )
     print(f"✅ 语言模型已初始化：{llm.model}")
 except Exception as e:
     print(f"🛑 初始化语言模型时出错：{e}")
@@ -284,21 +297,20 @@ tools = [
 
 # --- 创建多工具协作智能体 ---
 if llm:
-    agent_prompt = ChatPromptTemplate.from_messages([
-        ("system", """你是一个智能旅行助手，可以帮助用户：
+    system_prompt = """你是一个智能旅行助手，可以帮助用户：
         1. 查询目的地的天气情况
         2. 进行货币转换和汇率查询
         3. 计算城市间的距离
         4. 估算不同交通方式的旅行时间
         5. 提供旅行建议和预算分析
 
-        在回答问题时，请使用相关工具获取最新信息，并整合多个工具的结果为用户提供全面的旅行规划建议。"""),
-        ("human", "{input}"),
-        ("placeholder", "{agent_scratchpad}"),
-    ])
+        在回答问题时，请使用相关工具获取最新信息，并整合多个工具的结果为用户提供全面的旅行规划建议。"""
 
-    agent = create_tool_calling_agent(llm, tools, agent_prompt)
-    agent_executor = AgentExecutor(agent=agent, verbose=True, tools=tools)
+    agent = create_agent(
+        llm,
+        tools,
+        system_prompt=system_prompt
+    )
 
 def run_travel_assistant_queries():
     """
@@ -322,8 +334,12 @@ def run_travel_assistant_queries():
     for query in queries:
         print(f"\n🌍 用户查询：{query}")
         try:
-            response = agent_executor.invoke({"input": query})
-            print(f"🤖 助手回答：{response['output']}")
+            response = agent.invoke({"messages": [("user", query)]})
+            last_message = response["messages"][-1]
+            if hasattr(last_message, 'content'):
+                print(f"🤖 助手回答：{last_message.content}")
+            else:
+                print(f"🤖 助手回答：{last_message}")
         except Exception as e:
             print(f"🛑 查询出错：{e}")
         print("-" * 40)

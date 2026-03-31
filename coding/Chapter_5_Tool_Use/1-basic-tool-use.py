@@ -23,18 +23,32 @@ import logging
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import tool as langchain_tool
-from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain.agents import create_agent
+import httpx
+
+# 禁用代理，避免代理配置问题
+os.environ['NO_PROXY'] = '*'
+os.environ['no_proxy'] = '*'
 
 # --- 配置 ---
 load_dotenv()
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # 安全地设置 API 密钥
 if not os.getenv("OPENAI_API_KEY"):
     os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter your OpenAI API key: ")
 
+# 使用 .env 中的配置
+model_name = os.getenv("OPENAI_MODEL", "qwen-plus")
+api_url = os.getenv("OPENAI_API_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
+
 try:
     # 需要具有函数/工具调用能力的模型
-    llm = ChatOpenAI(model="gpt-4o", temperature=0)
+    llm = ChatOpenAI(
+        model=model_name,
+        temperature=0,
+        base_url=api_url if api_url else None
+    )
     print(f"✅ 语言模型已初始化：{llm.model}")
 except Exception as e:
     print(f"🛑 初始化语言模型时出错：{e}")
@@ -90,26 +104,26 @@ tools = [search_information, calculate]
 
 # --- 创建工具调用智能体 ---
 if llm:
-    # 此提示词模板需要一个 `agent_scratchpad` 占位符用于智能体的内部步骤
-    agent_prompt = ChatPromptTemplate.from_messages([
-        ("system", "你是一个有用的助手，可以使用搜索和计算工具来回答问题。"),
-        ("human", "{input}"),
-        ("placeholder", "{agent_scratchpad}"),
-    ])
+    system_prompt = "你是一个有用的助手，可以使用搜索和计算工具来回答问题。"
 
     # 创建智能体，将 LLM、工具和提示词绑定在一起
-    agent = create_tool_calling_agent(llm, tools, agent_prompt)
-
-    # AgentExecutor 是调用智能体并执行所选工具的运行时
-    agent_executor = AgentExecutor(agent=agent, verbose=True, tools=tools)
+    agent = create_agent(
+        llm,
+        tools,
+        system_prompt=system_prompt
+    )
 
 async def run_agent_with_tool(query: str):
     """使用查询调用智能体执行器并打印最终响应。"""
     print(f"\n--- 🏃 使用查询运行智能体：'{query}' ---")
     try:
-        response = await agent_executor.ainvoke({"input": query})
+        response = await agent.ainvoke({"messages": [("user", query)]})
         print("\n--- ✅ 最终智能体响应 ---")
-        print(response["output"])
+        last_message = response["messages"][-1]
+        if hasattr(last_message, 'content'):
+            print(last_message.content)
+        else:
+            print(last_message)
     except Exception as e:
         print(f"\n🛑 智能体执行期间发生错误：{e}")
 

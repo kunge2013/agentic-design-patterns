@@ -57,6 +57,7 @@ sudo dpkg -i pandoc-3.2-1-amd64.deb
   - 2.摘要格式: 要求整体章节结构要清晰，分层次描述，分为 4级标题
   - 3.流程图: 通过流程图 绘制 当前agentic范式的流程，基于 “mermaid” 语法
   - 4.代码块: 摘要的agentic 范式中，需要带上完整的流程代码，便于理解范式如何使用，以及场景
+  - 5.所以的llm配置都和 coding/Chapter_1_Prompt_Chaining/llm_config.py 一样
 
 ### Content Directories
 - `chapters/` - Translated Chinese markdown files
@@ -106,3 +107,7 @@ The `bilingual/` directory contains side-by-side format where each English parag
 - **GitHub Pages**: https://adp.xindoo.xyz/
 - **Automatic Builds**: Triggered on push to `main` branch when content changes
 - **Generated Artifacts**: PDF and EPUB files available via GitHub releases
+
+## 虚拟环境
+
+- ** source ~/.bashrc & conda activate agentic-design-patterns **
