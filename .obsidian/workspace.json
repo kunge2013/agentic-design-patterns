@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "coding/Chapter_3_Parallelization/Chapter_3_Parallelization_SUMMARY.md",
+                "file": "chapters/Chapter 6_ Planning.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter_3_Parallelization_SUMMARY"
+              "title": "Chapter 6_ Planning"
             }
           }
         ]
@@ -185,22 +185,28 @@
   },
   "active": "62eb621014442745",
   "lastOpenFiles": [
+    "coding/llm_config.py",
+    "coding/Chapter_6_Planning/llm_config.py",
+    "coding/Chapter_6_Planning/2-simple-planning-agent.py.tmp.60135.1774965596110",
+    "coding/Chapter_6_Planning/2-simple-planning-agent.py.tmp.60135.1774965511326",
+    "coding/Chapter_6_Planning/3-research-planning-agent.py.tmp.60135.1774965405308",
+    "coding/Chapter_6_Planning/__pycache__/llm_config.cpython-310.pyc",
+    "coding/Chapter_6_Planning/__pycache__",
+    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774965333790",
+    "coding/Chapter_6_Planning/Chapter_6_Planning_SUMMARY.md",
+    "coding/Chapter_6_Planning/Chapter_6_Planning_SUMMARY.md.tmp.60135.1774965287750",
+    "coding/Chapter_6_Planning/README.md",
+    "coding/Chapter_6_Planning/README.md.tmp.60135.1774965167865",
+    "coding/Chapter_6_Planning/requirements.txt",
+    "coding/Chapter_5_Tool_Use/Chapter_5_Tool_Use_SUMMARY.md",
+    "coding/Chapter_4_Reflection/Chapter_4_Reflection_SUMMARY.md",
+    "coding/Chapter_3_Parallelization/Chapter_3_Parallelization_SUMMARY.md",
     "coding/Chapter_2_Routing/Chapter_2_Routing_SUMMARY.md",
     "coding/Chapter_3_Parallelization_SUMMARY.md",
-    "coding/Chapter_3_Parallelization_SUMMARY.md.tmp.33989.1774599533730",
     "coding/Chapter_3_Parallelization/README.md",
-    "coding/Chapter_3_Parallelization/README.md.tmp.33989.1774599404551",
-    "coding/Chapter_3_Parallelization/2-google-adk-parallel-example.py",
-    "coding/Chapter_3_Parallelization/2-google-adk-parallel-example.py.tmp.33989.1774599353445",
-    "coding/Chapter_3_Parallelization/1-langchain-parallel-example.py",
-    "coding/Chapter_3_Parallelization/1-langchain-parallel-example.py.tmp.33989.1774599308221",
-    "coding/Chapter_3_Parallelization",
     "coding/Chapter_1_Prompt_Chaining/README.md",
     "coding/Chapter_1_Prompt_Chaining/Chapter_1_Prompt_Chaining_SUMMARY.md",
-    "coding/Chapter_1_Prompt_Chaining/Chapter_1_Prompt_Chaining_SUMMARY.md.tmp.8050.1774598161472",
-    "coding/Chapter_2_Routing/Chapter_2_Routing_SUMMARY.md.tmp.8050.1774597613205",
     "chapters/Chapter 2_ Routing.md",
-    "coding/Chapter_2_Routing/05-hybrid-routing-system.py.tmp.88012.1774593740185",
     "chapters/Chapter 1_ Prompt Chaining.md",
     "CLAUDE.md",
     "chapters/Appendix G -  Coding agents.md",
@@ -214,12 +220,6 @@
     "chapters/Chapter 11_ Goal Setting and Monitoring.md",
     "chapters/Chapter 10_ Model Context Protocol (MCP).md",
     "chapters/Chapter 9_ Learning and Adaptation.md",
-    "chapters/Chapter 8_ Memory Management.md",
-    "chapters/Chapter 7_ Multi-Agent Collaboration.md",
-    "chapters/Chapter 6_ Planning.md",
-    "chapters/Chapter 5_ Tool Use.md",
-    "chapters/Chapter 4_ Reflection.md",
-    "chapters/Chapter 3_ Parallelization.md",
-    "chapters/Agentic Design Patterns.md"
+    "chapters/Chapter 8_ Memory Management.md"
   ]
 }
