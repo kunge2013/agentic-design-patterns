@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "chapters/Chapter 6_ Planning.md",
+                "file": "chapters/Chapter 11_ Goal Setting and Monitoring.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter 6_ Planning"
+              "title": "Chapter 11_ Goal Setting and Monitoring"
             }
           }
         ]
@@ -185,19 +185,24 @@
   },
   "active": "62eb621014442745",
   "lastOpenFiles": [
-    "coding/llm_config.py",
-    "coding/Chapter_6_Planning/llm_config.py",
-    "coding/Chapter_6_Planning/2-simple-planning-agent.py.tmp.60135.1774965596110",
-    "coding/Chapter_6_Planning/2-simple-planning-agent.py.tmp.60135.1774965511326",
-    "coding/Chapter_6_Planning/3-research-planning-agent.py.tmp.60135.1774965405308",
-    "coding/Chapter_6_Planning/__pycache__/llm_config.cpython-310.pyc",
+    "coding/Chapter_6_Planning/__pycache__/3-research-planning-agent.cpython-310.pyc",
+    "coding/Chapter_6_Planning/__pycache__/2-simple-planning-agent.cpython-310.pyc",
+    "coding/Chapter_6_Planning/__pycache__/1-crewai-planning.cpython-310.pyc",
     "coding/Chapter_6_Planning/__pycache__",
-    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774965333790",
+    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774968168284",
+    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774968130087",
+    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774968078728",
+    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774968029746",
+    "coding/Chapter_6_Planning/3-research-planning-agent.py.tmp.60135.1774967727234",
+    "coding/Chapter_6_Planning/2-simple-planning-agent.py.tmp.60135.1774967609182",
+    "coding/Chapter_6_Planning/1-crewai-planning.py.tmp.60135.1774967583198",
+    "chapters/Chapter 10_ Model Context Protocol (MCP).md",
+    "chapters/Chapter 9_ Learning and Adaptation.md",
+    "chapters/Chapter 8_ Memory Management.md",
+    "chapters/Chapter 7_ Multi-Agent Collaboration.md",
+    "chapters/Chapter 6_ Planning.md",
     "coding/Chapter_6_Planning/Chapter_6_Planning_SUMMARY.md",
-    "coding/Chapter_6_Planning/Chapter_6_Planning_SUMMARY.md.tmp.60135.1774965287750",
     "coding/Chapter_6_Planning/README.md",
-    "coding/Chapter_6_Planning/README.md.tmp.60135.1774965167865",
-    "coding/Chapter_6_Planning/requirements.txt",
     "coding/Chapter_5_Tool_Use/Chapter_5_Tool_Use_SUMMARY.md",
     "coding/Chapter_4_Reflection/Chapter_4_Reflection_SUMMARY.md",
     "coding/Chapter_3_Parallelization/Chapter_3_Parallelization_SUMMARY.md",
@@ -215,11 +220,6 @@
     "chapters/Chapter 16_ Resource-Aware Optimization.md",
     "chapters/Chapter 15_ Inter-Agent Communication (A2A).md",
     "chapters/Chapter 14_ Knowledge Retrieval (RAG).md",
-    "chapters/Chapter 13_ Human-in-the-Loop.md",
-    "chapters/Chapter 12_ Exception Handling and Recovery.md",
-    "chapters/Chapter 11_ Goal Setting and Monitoring.md",
-    "chapters/Chapter 10_ Model Context Protocol (MCP).md",
-    "chapters/Chapter 9_ Learning and Adaptation.md",
-    "chapters/Chapter 8_ Memory Management.md"
+    "chapters/Chapter 13_ Human-in-the-Loop.md"
   ]
 }

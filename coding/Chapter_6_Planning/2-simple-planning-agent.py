@@ -12,8 +12,12 @@ from dataclasses import dataclass
 
 # 添加父目录到路径
 parent_dir = str(Path(__file__).parent.parent)
+chapter1_dir = str(Path(__file__).parent.parent / "Chapter_1_Prompt_Chaining")
+
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
+if chapter1_dir not in sys.path:
+    sys.path.insert(0, chapter1_dir)
 
 from llm_config import get_default_llm_config
 from langchain_openai import ChatOpenAI

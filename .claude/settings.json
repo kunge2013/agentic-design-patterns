@@ -9,7 +9,17 @@
       "Bash(/home/fk/miniconda3/envs/agentic-design-patterns/bin/python -c \"import langchain.agents.factory; print\\(dir\\(langchain.agents.factory\\)\\)\")",
       "Bash(/home/fk/miniconda3/envs/agentic-design-patterns/bin/python -c \"import langchain; print\\(langchain.__version__\\)\")",
       "Bash(/home/fk/miniconda3/envs/agentic-design-patterns/bin/python -c \"from langchain.agents import create_agent; import inspect; print\\(inspect.signature\\(create_agent\\)\\)\")",
-      "Bash(/home/fk/miniconda3/envs/agentic-design-patterns/bin/python -c \"from langchain.agents import create_agent; import inspect; help\\(create_agent\\)\")"
+      "Bash(/home/fk/miniconda3/envs/agentic-design-patterns/bin/python -c \"from langchain.agents import create_agent; import inspect; help\\(create_agent\\)\")",
+      "Bash(source ~/.bashrc)",
+      "Bash(conda activate:*)",
+      "Bash(python -c \"import sys; sys.path.insert\\(0, ''coding''\\); from Chapter_6_Planning import llm_config; print\\(''Import successful''\\)\")",
+      "Bash(python -c \"import sys; sys.path.insert\\(0, ''../''\\); import llm_config; print\\(''Import successful''\\)\")",
+      "Bash(python -c \"import sys; from pathlib import Path; sys.path.insert\\(0, str\\(Path.cwd\\(\\) / ''coding'' / ''Chapter_1_Prompt_Chaining''\\)\\); import llm_config; print\\(''Import successful!''\\)\")",
+      "Bash(python -m py_compile /home/fk/workspace/workspace/github/agentic-design-patterns/coding/Chapter_6_Planning/1-crewai-planning.py)",
+      "Bash(python -m py_compile /home/fk/workspace/github/agentic-design-patterns/coding/Chapter_6_Planning/1-crewai-planning.py)",
+      "Bash(python -m py_compile /home/fk/workspace/github/agentic-design-patterns/coding/Chapter_6_Planning/2-simple-planning-agent.py)",
+      "Bash(python -m py_compile /home/fk/workspace/github/agentic-design-patterns/coding/Chapter_6_Planning/3-research-planning-agent.py)",
+      "Bash(python -c \":*)"
     ],
     "additionalDirectories": [
       "/home/fk/workspace/github/agentic-design-patterns/coding"

@@ -14,16 +14,17 @@ import time
 
 # 添加父目录与其他目录到路径
 parent_dir = str(Path(__file__).parent.parent)
+chapter1_dir = str(Path(__file__).parent.parent / "Chapter_1_Prompt_Chaining")
+
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
-
-sys.path.insert(0, str(Path(__file__).parent.parent / "Chapter_5_Tool_Use"))
+if chapter1_dir not in sys.path:
+    sys.path.insert(0, chapter1_dir)
 
 from llm_config import get_default_llm_config
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import Tool
-from langchain.agents import initialize_agent, AgentType
 
 ## 1. 初始化 LLM 配置
 llm_config = get_default_llm_config()
