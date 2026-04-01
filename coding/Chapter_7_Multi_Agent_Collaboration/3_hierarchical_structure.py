@@ -8,9 +8,8 @@
 - 层级决策（上级协调下级执行）
 """
 from typing import Dict, Any, List
-from langchain.schema import HumanMessage
-from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.messages import HumanMessage
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 import sys
 import os
@@ -30,13 +29,10 @@ class WorkerAgent:
         self.llm = llm
 
         # 创建专用的处理链
-        self.processing_chain = LLMChain(
-            llm=llm,
-            prompt=ChatPromptTemplate.from_messages([
-                ("system", f"你是一个{specialty}专家。\n{description}\n请用专业、准确的方式处理用户的请求。"),
-                ("human", "{task}")
-            ])
-        )
+        self.processing_chain = ChatPromptTemplate.from_messages([
+            ("system", f"你是一个{specialty}专家。\n{description}\n请用专业、准确的方式处理用户的请求。"),
+            ("human", "{task}")
+        ]) | llm
 
     def can_handle(self, task: str) -> float:
         """评估该智能体能否处理此任务，返回一个置信度分数（0-1）"""
@@ -61,13 +57,14 @@ class WorkerAgent:
         """执行任务"""
         print(f"  [{self.name}] 正在处理任务...")
         try:
-            result = self.processing_chain.run(task=task)
+            result = self.processing_chain.invoke({"task": task})
+            result_text = result.content if hasattr(result, 'content') else str(result)
             print(f"  [{self.name}] 任务完成")
             return {
                 "agent": self.name,
                 "specialty": self.specialty,
                 "success": True,
-                "result": result
+                "result": result_text
             }
         except Exception as e:
             print(f"  [{self.name}] 任务失败: {e}")
@@ -89,22 +86,16 @@ class ManagerAgent:
         self.workers: List[WorkerAgent] = []
 
         # 协调链
-        self.coordination_chain = LLMChain(
-            llm=llm,
-            prompt=ChatPromptTemplate.from_messages([
-                ("system", f"你是一个任务协调管理者。\n{coordination_style}\n你的职责是分析任务需求，分解任务，并整合下属智能体的结果。"),
-                ("human", "{request}")
-            ])
-        )
+        self.coordination_chain = ChatPromptTemplate.from_messages([
+            ("system", f"你是一个任务协调管理者。\n{coordination_style}\n你的职责是分析任务需求，分解任务，并整合下属智能体的结果。"),
+            ("human", "{request}")
+        ]) | llm
 
         # 综合链
-        self.synthesis_chain = LLMChain(
-            llm=llm,
-            prompt=ChatPromptTemplate.from_messages([
-                ("system", "你是一个结果综合专家。你的任务是将多个专家的结果整合成一个连贯、完整的答案。"),
-                ("human", "{original_request}\n\n专家结果：\n{expert_results}\n\n请综合以上专家的结果，提供一个全面、准确的答案。")
-            ])
-        )
+        self.synthesis_chain = ChatPromptTemplate.from_messages([
+            ("system", "你是一个结果综合专家。你的任务是将多个专家的结果整合成一个连贯、完整的答案。"),
+            ("human", "{original_request}\n\n专家结果：\n{expert_results}\n\n请综合以上专家的结果，提供一个全面、准确的答案。")
+        ]) | llm
 
     def add_worker(self, worker: WorkerAgent):
         """添加工作智能体"""
@@ -136,12 +127,13 @@ class ManagerAgent:
     def _handle_directly(self, task: str) -> Dict[str, Any]:
         """管理者直接处理任务"""
         try:
-            result = self.coordination_chain.run(request=task)
+            result = self.coordination_chain.invoke({"request": task})
+            result_text = result.content if hasattr(result, 'content') else str(result)
             return {
                 "agent": self.name,
                 "specialty": "综合管理",
                 "success": True,
-                "result": result
+                "result": result_text
             }
         except Exception as e:
             return {

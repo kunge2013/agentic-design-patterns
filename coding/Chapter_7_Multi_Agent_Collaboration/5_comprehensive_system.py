@@ -8,9 +8,8 @@
 - 企业知识管理系统（收集 + 组织 + 分享 + 应用）
 """
 from typing import Dict, Any, List, Optional
-from langchain.schema import HumanMessage
-from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.messages import HumanMessage
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 import sys
 import os
@@ -34,13 +33,10 @@ class BaseAgent:
         # 创建动态LLM（可以调整温度）
         self.dynamic_llm = create_llm(temperature=temperature)
 
-        self.default_chain = LLMChain(
-            llm=self.dynamic_llm,
-            prompt=ChatPromptTemplate.from_messages([
-                ("system", f"你是一个{role}。请用专业、准确的方式回应。"),
-                ("human", "{input}")
-            ])
-        )
+        self.default_chain = ChatPromptTemplate.from_messages([
+            ("system", f"你是一个{role}。请用专业、准确的方式回应。"),
+            ("human", "{input}")
+        ]) | self.dynamic_llm
 
     def process(self, input_text: str, **kwargs) -> str:
         """处理输入"""
@@ -48,18 +44,17 @@ class BaseAgent:
         try:
             if kwargs:
                 # 使用自定义参数
-                custom_chain = LLMChain(
-                    llm=self.llm,
-                    prompt=ChatPromptTemplate.from_messages([
-                        ("system", f"你是一个{self.role}。{kwargs.get('system_instruction', '')}"),
-                        ("human", "{input}")
-                    ])
-                )
-                result = custom_chain.run(input=input_text)
+                custom_chain = ChatPromptTemplate.from_messages([
+                    ("system", f"你是一个{self.role}。{kwargs.get('system_instruction', '')}"),
+                    ("human", "{input}")
+                ]) | self.llm
+                result = custom_chain.invoke({"input": input_text})
             else:
-                result = self.default_chain.run(input=input_text)
+                result = self.default_chain.invoke({"input": input_text})
+
+            result_text = result.content if hasattr(result, 'content') else str(result)
             print(f"[{self.name}] 处理完成")
-            return result
+            return result_text
         except Exception as e:
             print(f"[{self.name}] 处理失败: {e}")
             raise

@@ -8,9 +8,8 @@
 - 安全审查（生成方案 -> 安全评估 -> 改进）
 """
 from typing import Dict, Any, List
-from langchain.schema import HumanMessage
-from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.messages import HumanMessage
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 import sys
 import os
@@ -28,19 +27,17 @@ class CreatorAgent:
         self.role = role
         self.llm = llm
 
-        self.creation_chain = LLMChain(
-            llm=llm,
-            prompt=ChatPromptTemplate.from_messages([
-                ("system", f"你是一个{role}。你的目标是根据用户需求生成高质量的初始内容。"),
-                ("human", "{request}")
-            ])
-        )
+        self.creation_chain = ChatPromptTemplate.from_messages([
+            ("system", f"你是一个{role}。你的目标是根据用户需求生成高质量的初始内容。"),
+            ("human", "{request}")
+        ]) | llm
 
     def create(self, request: str) -> Dict[str, Any]:
         """创建内容"""
         print(f"[{self.name}] 正在生成内容...")
         try:
-            content = self.creation_chain.run(request=request)
+            result = self.creation_chain.invoke({"request": request})
+            content = result.content if hasattr(result, 'content') else str(result)
             print(f"[{self.name}] 内容生成完成")
             return {
                 "success": True,
@@ -65,19 +62,17 @@ class CriticAgent:
         self.review_criteria = review_criteria
         self.llm = llm
 
-        self.review_chain = LLMChain(
-            llm=llm,
-            prompt=ChatPromptTemplate.from_messages([
-                ("system", f"你是一个{role}。\n\n你的审查标准是：{review_criteria}\n\n请按照以下格式提供审查意见：\n1. 整体评估（通过/不通过）\n2. 发现的问题列表\n3. 具体的改进建议\n4. 是否需要重新生成"),
-                ("human", "原始请求：{request}\n\n待审查内容：\n{content}")
-            ])
-        )
+        self.review_chain = ChatPromptTemplate.from_messages([
+            ("system", f"你是一个{role}。\n\n你的审查标准是：{review_criteria}\n\n请按照以下格式提供审查意见：\n1. 整体评估（通过/不通过）\n2. 发现的问题列表\n3. 具体的改进建议\n4. 是否需要重新生成"),
+            ("human", "原始请求：{request}\n\n待审查内容：\n{content}")
+        ]) | llm
 
     def review(self, request: str, content: str) -> Dict[str, Any]:
         """审查内容"""
         print(f"[{self.name}] 正在审查内容...")
         try:
-            review_result = self.review_chain.run(request=request, content=content)
+            result = self.review_chain.invoke({"request": request, "content": content})
+            review_result = result.content if hasattr(result, 'content') else str(result)
             print(f"[{self.name}] 审查完成")
 
             # 分析审查结果
@@ -106,23 +101,21 @@ class RevisorAgent:
         self.role = role
         self.llm = llm
 
-        self.revision_chain = LLMChain(
-            llm=llm,
-            prompt=ChatPromptTemplate.from_messages([
-                ("system", f"你是一个{role}。你的目标是根据审查意见修订内容，解决所有发现的问题，同时保持原有的优点。"),
-                ("human", "原始请求：{request}\n\n当前内容：\n{current_content}\n\n审查意见：\n{review}\n\n请提供修订后的完整内容。")
-            ])
-        )
+        self.revision_chain = ChatPromptTemplate.from_messages([
+            ("system", f"你是一个{role}。你的目标是根据审查意见修订内容，解决所有发现的问题，同时保持原有的优点。"),
+            ("human", "原始原求：{request}\n\n当前内容：\n{current_content}\n\n审查意见：\n{review}\n\n请提供修订后的完整内容。")
+        ]) | llm
 
     def revise(self, request: str, current_content: str, review: str) -> Dict[str, Any]:
         """修订内容"""
         print(f"[{self.name}] 正在修订内容...")
         try:
-            revised_content = self.revision_chain.run(
-                request=request,
-                current_content=current_content,
-                review=review
-            )
+            result = self.revision_chain.invoke({
+                "request": request,
+                "current_content": current_content,
+                "review": review
+            })
+            revised_content = result.content if hasattr(result, 'content') else str(result)
             print(f"[{self.name}] 内容修订完成")
             return {
                 "success": True,

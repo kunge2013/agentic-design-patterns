@@ -8,9 +8,8 @@
 - 代码生成（需求分析 -> 设计 -> 编码）
 """
 from typing import Dict, Any
-from langchain.schema import HumanMessage, AIMessage
-from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.messages import HumanMessage, AIMessage
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 import sys
 import os
@@ -32,14 +31,16 @@ class SequentialAgent:
             ("system", f"你是一个{role}。你的目标是：{goal}"),
             ("human", "{input}")
         ])
-        self.chain = LLMChain(llm=llm, prompt=self.prompt_template)
+        # 使用现代LangChain LCEL方式
+        self.chain = self.prompt_template | llm
 
     def process(self, input_text: str) -> str:
         """处理输入并返回输出"""
         print(f"\n[{self.name}] 正在处理...")
-        result = self.chain.run(input=input_text)
-        print(f"[{self.name}] 输出: {result[:100]}...")
-        return result
+        result = self.chain.invoke({"input": input_text})
+        result_text = result.content if hasattr(result, 'content') else str(result)
+        print(f"[{self.name}] 输出: {result_text[:100]}...")
+        return result_text
 
 
 def sequential_handover_example():

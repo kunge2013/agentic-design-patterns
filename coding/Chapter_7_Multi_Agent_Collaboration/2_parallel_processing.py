@@ -10,9 +10,8 @@
 import asyncio
 from typing import List, Dict, Any
 from concurrent.futures import ThreadPoolExecutor
-from langchain.schema import HumanMessage
-from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.messages import HumanMessage
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 import sys
 import os
@@ -34,18 +33,20 @@ class ParallelAgent:
             ("system", f"你是一个{role}。你的目标是：{goal}"),
             ("human", "{input}")
         ])
-        self.chain = LLMChain(llm=llm, prompt=self.prompt_template)
+        # 使用现代LangChain LCEL方式
+        self.chain = self.prompt_template | llm
 
     def process(self, input_text: str) -> Dict[str, Any]:
         """处理输入并返回结果"""
         print(f"[{self.name}] 开始处理...")
         try:
-            result = self.chain.run(input=input_text)
+            result = self.chain.invoke({"input": input_text})
+            result_text = result.content if hasattr(result, 'content') else str(result)
             print(f"[{self.name}] 处理完成")
             return {
                 "agent": self.name,
                 "success": True,
-                "result": result
+                "result": result_text
             }
         except Exception as e:
             print(f"[{self.name}] 处理失败: {e}")
