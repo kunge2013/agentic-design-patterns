@@ -58,7 +58,12 @@ sudo dpkg -i pandoc-3.2-1-amd64.deb
   - 3.流程图: 通过流程图 绘制 当前agentic范式的流程，基于 “mermaid” 语法
   - 4.代码块: 摘要的agentic 范式中，需要带上完整的流程代码，便于理解范式如何使用，以及场景
   - 5.所以的llm配置都和 coding/Chapter_1_Prompt_Chaining/llm_config.py 一样
-
+- 5.实战演练
+  - 1.基于章节文件 + 摘要 + 代码示例，你自己想象一个实用的实战项目。并应用应用章节知识 并生成代码到 (coding/practical)，如果coding 下面的practical不存在，先创建
+  - 2.项目要求
+    - 1. 紧密结合章节内容，实战章节应用
+    - 2. 项目模型配置和章节一样  coding/{xx章节}/llm_config.py,且复制到 practical 目录
+    - 3. 生成项目要求有readme.md 说明如何使用范式，且需要有 "mermaid" 流程图，描述项目运行流程
 ### Content Directories
 - `chapters/` - Translated Chinese markdown files
 - `original/` - Original English markdown files
