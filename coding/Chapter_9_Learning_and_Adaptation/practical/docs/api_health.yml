@@ -1,0 +1,35 @@
+tags:
+  - 系统管理
+summary: 系统健康检查
+description: |
+  检查系统运行状态和基本信息。
+
+  ## 检查内容
+  - 服务可用性
+  - 当前版本号
+  - 响应时间
+
+  ## 使用场景
+  - 监控系统健康状态
+  - 部署后验证
+  - 定期健康检查
+produces:
+  - application/json
+responses:
+  200:
+    description: 系统健康状态
+    schema:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, unhealthy]
+          example: "healthy"
+        version:
+          type: integer
+          description: 当前学习版本号
+          example: 1
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-01-01T12:00:00Z"

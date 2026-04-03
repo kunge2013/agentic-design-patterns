@@ -1,0 +1,26 @@
+tags:
+  - 系统管理
+summary: 获取系统版本信息
+description: |
+  获取当前系统版本号和描述信息。
+
+  ## 版本管理
+  - 每次自动改进后版本号递增
+  - 版本记录系统学习历史
+  - 用于追踪性能变化
+produces:
+  - application/json
+responses:
+  200:
+    description: 版本信息
+    schema:
+      type: object
+      properties:
+        version:
+          type: integer
+          description: 当前学习版本号
+          example: 1
+        description:
+          type: string
+          description: 版本描述
+          example: "学习版本 1"

@@ -1,0 +1,108 @@
+info:
+  title: 智能客服学习助手 API
+  description: |
+    基于学习和适应模式的智能客服系统 API 文档
+
+    ## 系统概述
+
+    本系统实现了 Agentic Design Patterns 中的**学习和适应模式**，通过用户反馈持续优化客服回复质量。
+
+    ## 核心功能
+
+    ### 智能问答
+    - 知识库快速匹配
+    - 大语言模型兜底
+    - 问题类型自动识别
+    - 多用户会话支持
+
+    ### 反馈学习
+    - 用户评分评分
+    - 自动策略调整
+    - 持续性能优化
+    - 多维度反馈分析
+
+    ### 自我改进
+    - 定期自我评估
+    - 自动参数调优
+    - 知识库扩充
+    - 版本迭代管理
+
+    ## 使用指南
+
+    ### 快速开始
+    1. 首先访问 `/api/health` 检查系统状态
+    2. 使用 `/api/ask` 进行问题咨询
+    3. 通过 `/api/feedback` 提交评价
+    4. 定期调用 `/api/improve` 自动优化
+
+    ### 学习机制
+    - **高分反馈（4-5星）**：巩固当前策略
+    - **低分反馈（1-3星）**：触发策略调整
+    - **版本管理**：每次改进版本号递增
+    - **性能追踪**：通过评分趋势监控效果
+
+  contact:
+    name: Agentic Design Patterns Team
+    email: support@example.com
+    url: https://github.com/anthropics/anthropic-cookbook
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  version: "1.0.0"
+
+host: localhost:5000
+basePath: /
+schemes:
+  - http
+  - https
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+tags:
+  - name: 客服对话
+    description: 用户提问和系统回复相关接口
+  - name: 用户反馈
+    description: 用户反馈收集和学习接口
+  - name: 系统管理
+    description: 系统评估、统计和健康检查接口
+  - name: 知识库管理
+    description: 知识库管理接口
+
+securityDefinitions:
+  apiKey:
+    type: apiKey
+    name: X-API-Key
+    in: header
+    description: API Key 认证（可选）
+
+security:
+  - apiKey: []
+
+definitions:
+  ErrorResponse:
+    type: object
+    description: 通用错误响应格式
+    properties:
+      error:
+        type: string
+        description: 错误信息
+        example: "请求参数错误"
+      code:
+        type: string
+        description: 错误代码
+        example: "INVALID_PARAMS"
+
+  SuccessResponse:
+    type: object
+    description: 通用成功响应格式
+    properties:
+      success:
+        type: boolean
+        example: true
+      message:
+        type: string
+        description: 成功消息
+        example: "操作成功"

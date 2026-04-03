@@ -1,0 +1,38 @@
+tags:
+  - 知识库管理
+summary: 获取知识库内容
+description: |
+  获取当前系统中所有知识库条目。
+
+  ## 知识库分类
+  - product：产品信息
+  - pricing：价格信息
+  - technical：技术支持
+  - shipping：配送信息
+  - refund：退款政策
+  - other：其他信息
+
+  ## 使用场景
+  - 知识库管理
+  - 内容审核
+  - 数据分析
+produces:
+  - application/json
+responses:
+  200:
+    description: 获取成功
+    schema:
+      $ref: '#/definitions/KnowledgeBaseResponse'
+definitions:
+  KnowledgeBaseResponse:
+    type: object
+    properties:
+      knowledge_base:
+        type: object
+        description: 按类型分类的知识库
+        example:
+          product:
+            - "产品信息：我们提供多种智能产品，包括AI助手、自动化工具、数据分析平台等。"
+            - "产品保修：所有产品享受1年质保，可延保至3年。"
+          pricing:
+            - "价格信息：基础版免费，专业版每月99元，企业版定制价格。"

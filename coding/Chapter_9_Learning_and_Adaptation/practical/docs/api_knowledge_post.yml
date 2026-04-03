@@ -1,0 +1,70 @@
+tags:
+  - 知识库管理
+summary: 添加知识库条目
+description: |
+  向知识库中添加新的知识条目。
+
+  ## 知识类型
+  - product：产品相关
+  - pricing：价格相关
+  - technical：技术支持
+  - shipping：配送相关
+  - refund：退款相关
+  - other：其他类型
+
+  ## 使用场景
+  - 知识库扩充
+  - 新产品上架
+  - 政策更新
+  - FAQ 维护
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/AddKnowledgeRequest'
+responses:
+  200:
+    description: 添加成功
+    schema:
+      $ref: '#/definitions/SuccessResponse'
+  400:
+    description: 请求参数错误
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+definitions:
+  AddKnowledgeRequest:
+    type: object
+    required:
+      - content
+    properties:
+      question_type:
+        type: string
+        description: 问题类型
+        enum: [product, pricing, technical, shipping, refund, other]
+        default: other
+        example: "product"
+      content:
+        type: string
+        description: 知识库内容
+        minLength: 1
+        example: "产品信息：我们提供多种智能产品"
+  SuccessResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+        example: true
+      message:
+        type: string
+        example: "知识库条目已添加"
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        example: "内容不能为空"

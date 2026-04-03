@@ -1,0 +1,79 @@
+tags:
+  - 系统管理
+summary: 系统自我评估
+description: |
+  对系统当前性能进行自我评估，识别优势领域和需要改进的地方。
+
+  ## 评估维度
+  - 用户满意度（基于评分）
+  - 回复质量（基于反馈）
+  - 知识库覆盖率
+  - 响应准确性
+
+  ## 评估输出
+  - 综合得分（0-1）
+  - 优势领域列表
+  - 需要改进领域
+  - 改进建议
+
+  ## 使用场景
+  - 定期系统检查
+  - 性能分析
+  - 优化决策支持
+produces:
+  - application/json
+responses:
+  200:
+    description: 评估成功
+    schema:
+      $ref: '#/definitions/EvaluationResponse'
+definitions:
+  EvaluationResponse:
+    type: object
+    properties:
+      overall_score:
+        type: number
+        format: float
+        description: 综合得分 (0-1)
+        minimum: 0
+        maximum: 1
+        example: 0.75
+      basic_metrics:
+        type: object
+        properties:
+          total_feedback:
+            type: integer
+            description: 总反馈数
+            example: 10
+          avg_rating:
+            type: number
+            format: float
+            description: 平均评分
+            minimum: 1
+            maximum: 5
+            example: 4.2
+          recent_avg:
+            type: number
+            format: float
+            description: 最近平均评分
+            minimum: 1
+            maximum: 5
+            example: 4.5
+      areas_to_improve:
+        type: array
+        description: 需要改进的领域
+        items:
+          type: string
+        example: ["提高回复准确性", "增加产品知识库"]
+      strengths:
+        type: array
+        description: 优势领域
+        items:
+          type: string
+        example: ["响应速度快", "用户满意度高"]
+      recommendations:
+        type: array
+        description: 改进建议
+        items:
+          type: string
+        example: ["扩充产品知识库", "优化回复模板"]

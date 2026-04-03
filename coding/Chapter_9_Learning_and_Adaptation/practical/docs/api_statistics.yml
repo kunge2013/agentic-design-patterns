@@ -1,0 +1,59 @@
+tags:
+  - 系统管理
+summary: 获取系统统计信息
+description: |
+  获取系统运行统计和当前策略参数。
+
+  ## 统计信息
+  - 用户数量
+  - 反馈统计
+  - 系统版本
+  - 策略参数
+
+  ## 使用场景
+  - 性能监控
+  - 数据分析
+  - 运营报告
+produces:
+  - application/json
+responses:
+  200:
+    description: 获取成功
+    schema:
+      $ref: '#/definitions/StatisticsResponse'
+definitions:
+  StatisticsResponse:
+    type: object
+    properties:
+      version:
+        type: integer
+        description: 当前系统版本号
+        example: 1
+      overall_score:
+        type: number
+        format: float
+        description: 综合评分（0-1）
+        example: 0.8
+      total_users:
+        type: integer
+        description: 总用户数
+        example: 5
+      basic_metrics:
+        type: object
+        description: 基础指标
+        properties:
+          total_feedback:
+            type: integer
+            description: 总反馈数
+            example: 10
+          avg_rating:
+            type: number
+            format: float
+            description: 平均评分（1-5）
+            example: 4.2
+      strategy_params:
+        type: object
+        description: 当前策略参数
+        example:
+          knowledge_weight: 0.7
+          llm_weight: 0.3

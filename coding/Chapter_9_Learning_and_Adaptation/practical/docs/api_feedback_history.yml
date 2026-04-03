@@ -1,0 +1,70 @@
+tags:
+  - 系统管理
+summary: 获取反馈历史
+description: |
+  获取用户反馈历史记录，支持分页查询。
+
+  ## 功能特点
+  - 支持分页查询
+  - 按时间倒序排列
+  - 响应内容自动截断
+
+  ## 使用场景
+  - 反馈分析
+  - 用户满意度监控
+  - 系统性能评估
+produces:
+  - application/json
+parameters:
+  - name: limit
+    in: query
+    type: integer
+    description: 返回记录数量限制
+    default: 20
+    minimum: 1
+    maximum: 100
+    example: 10
+responses:
+  200:
+    description: 获取成功
+    schema:
+      $ref: '#/definitions/FeedbackHistoryResponse'
+definitions:
+  FeedbackHistoryResponse:
+    type: object
+    properties:
+      total:
+        type: integer
+        description: 总记录数
+        example: 50
+      history:
+        type: array
+        description: 反馈历史记录
+        items:
+          type: object
+          properties:
+            user_id:
+              type: string
+              description: 用户ID
+              example: "user1"
+            question:
+              type: string
+              description: 用户问题
+              example: "你们的产品有什么特点？"
+            response:
+              type: string
+              description: 系统回复（可能被截断）
+              example: "我们提供多种智能产品..."
+            rating:
+              type: integer
+              description: 用户评分（1-5）
+              example: 4
+            feedback_text:
+              type: string
+              description: 用户反馈内容
+              example: "回答很详细"
+            timestamp:
+              type: string
+              format: date-time
+              description: 反馈时间
+              example: "2024-01-01T12:00:00Z"

@@ -1,4 +1,4 @@
-<!DOCTYPE htmlDOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -314,6 +314,42 @@
                 </div>
 
                 <button class="btn" onclick="sendLearningRequest()">🚀 发送学习请求</button>
+
+                <hr style="margin: 25px 0; border-color: #e0e0e0;">
+
+                <h2>📊 学习会话管理</h2>
+
+                <div class="input-group">
+                    <label>学习主题</label>
+                    <input type="text" id="sessionTopic" placeholder="例如：Python 函数基础">
+                </div>
+
+                <div class="input-group">
+                    <label>学习时长（分钟）</label>
+                    <input type="number" id="sessionDuration" placeholder="例如：45" min="1" max="480">
+                </div>
+
+                <div class="input-group">
+                    <label>学习笔记</label>
+                    <textarea id="sessionNotes" placeholder="记录今天的学习心得..."></textarea>
+                </div>
+
+                <button class="btn" onclick="recordSession()">💾 记录学习会话</button>
+
+                <hr style="margin: 25px 0; border-color: #e0e0e0;">
+
+                <h2>📈 数据查看</h2>
+
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" onclick="getHistory()">📚 查看学习历史</button>
+                    <button class="btn btn-secondary" onclick="getStats()">📊 查看学习统计</button>
+                    <button class="btn btn-secondary" onclick="getSystemInfo()">⚙️ 系统信息</button>
+                </div>
+
+                <div id="dataDisplay" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; display: none;">
+                    <h3 id="dataTitle" style="color: #667eea; margin-bottom: 10px;"></h3>
+                    <pre id="dataContent" style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 0.9em;"></pre>
+                </div>
             </div>
 
             <!-- 右侧：流程可视化 -->
@@ -365,7 +401,18 @@
 
             let contentHtml = '';
             contentBlocks.forEach(block => {
-                const valueHtml = block.value ? block.value.replace(/\n/g, '<br>').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '处理中...';
+                let valueDisplay = block.value;
+
+                // 处理不同类型的值
+                if (valueDisplay === undefined || valueDisplay === null) {
+                    valueDisplay = '无';
+                } else if (typeof valueDisplay === 'object') {
+                    valueDisplay = JSON.stringify(valueDisplay);
+                } else if (typeof valueDisplay !== 'string') {
+                    valueDisplay = String(valueDisplay);
+                }
+
+                const valueHtml = valueDisplay.replace(/\n/g, '<br>').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                 contentHtml += `
                     <div class="info-row">
                         <div class="info-label">${block.title}:</div>
@@ -404,6 +451,7 @@
             }
 
             try {
+                // 调用后端 API 创建用户画像
                 const response = await fetch('/setup_profile', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -418,26 +466,28 @@
 
                 // 流程可视化 - 创建用户画像
                 addStep('创建用户画像', 'memory', [
-                    { title: '用户ID', value: 'user_123 (自动生成)' },
+                    { title: '用户ID', value: data.profile?.user_id || '自动生成' },
                     { title: '操作类型', value: '存储用户画像' },
                     { title: '存储位置', value: '<span class="highlight">语义记忆 (Semantic Memory)</span>' },
                     { title: '命名空间', value: '(user_id, "semantic_memory")' },
-                    { title: '存储数据', value: '用户基本信息 + 学习偏好' },
+                    { title: '存储数据', value: `姓名: ${userName}, 水平: ${userLevel}, 目标: ${userGoal}` },
                     { title: '存储后端', value: 'InMemoryStore' },
-                    { title: '存储操作', value: 'store.put(namespace, "profile", data)' }
+                    { title: 'API 端点', value: '/setup_profile' }
                 ]);
 
                 if (data.success) {
                     alert('✅ 学习档案创建成功！');
+                } else {
+                    throw new Error('创建失败');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                // 演示模式下的成功
-                addStep('创建用户画像', 'memory', [
-                    { title: '状态', value: '<span class="success">演示模式 - 模拟成功</span>' },
-                    { title: '说明', value: '实际运行时会连接真实后端服务' }
+                addStep('❌ 创建用户画像失败', 'flow', [
+                    { title: '错误类型', value: '<span class="error">API 调用失败</span>' },
+                    { title: '错误信息', value: error.message },
+                    { title: '可能原因', value: '1. 后端服务未启动\n2. 网络连接问题\n3. 服务器内部错误' }
                 ]);
-                alert('✅ 学习档案创建成功！（演示模式）');
+                alert(`创建失败: ${error.message}\n\n请确保 Flask 后端正在运行！`);
             }
         }
 
@@ -458,129 +508,210 @@
                 { title: '时间戳', value: new Date().toLocaleString('zh-CN') }
             ]);
 
-            // 步骤2：检索语义记忆
-            await new Promise(resolve => setTimeout(resolve, 800));
+            try {
+                // 步骤2：调用后端 API
+                await new Promise(resolve => setTimeout(resolve, 500));
 
-            addStep('📖 检索用户上下文 - 语义记忆', 'memory', [
-                { title: '记忆类型', value: '<span class="highlight">语义记忆 (Semantic Memory)</span>' },
-                { title: '检索内容', value: '用户画像、学习偏好' },
-                { title: '存储后端', value: 'InMemoryStore' },
-                { title: '命名空间', value: '(user_id, "semantic_memory")' },
-                { title: '检索操作', value: 'store.get(namespace, "profile")' },
-                { title: '检索数据', value: '用户基本资料 + 学习目标' },
-                { title: '数据用途', value: '构建个性化上下文' }
-            ]);
+                addStep('📡 发送请求到后端', 'flow', [
+                    { title: 'API 端点', value: '/learning_request' },
+                    { title: '请求方法', value: 'POST' },
+                    { title: '请求数据', value: `message: ${message}\ntype: learn` }
+                ]);
 
-            // 步骤3：检索情景记忆
-            await new Promise(resolve => setTimeout(resolve, 600));
+                // 调用真实的后端 API
+                const response = await fetch('/learning_request', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: message,
+                        type: 'learn'
+                    })
+                });
 
-            addStep('📚 检索学习历史 - 情景记忆', 'memory', [
-                { title: '记忆类型', value: '<span class="highlight">情景记忆 (Episodic Memory)</span>' },
-                { title: '检索内容', value: '最近的10条学习会话' },
-                { title: '存储后端', value: 'InMemoryStore' },
-                { title: '命名空间', value: '(user_id, "episodic_memory")' },
-                { title: '检索操作', value: 'store.search(namespace)' },
-                { title: '检索数据', value: '学习会话记录 + 问答历史' },
-                { title: '数据用途', value: '分析学习模式，优化建议' }
-            ]);
+                const data = await response.json();
 
-            // 步骤4：检索程序记忆
-            await new Promise(resolve => setTimeout(resolve, 500));
+                if (!response.ok || !data.success) {
+                    throw new Error(data.error || '请求失败');
+                }
 
-            addStep('📋 检索教学策略 - 程序记忆', 'memory', [
-                { title: '记忆类型', value: '<span class="highlight">程序记忆 (Procedural Memory)</span>' },
-                { title: '检索内容', value: '教学原则、响应模板' },
-                { title: '存储后端', value: 'InMemoryStore' },
-                { title: '命名空间', value: '("system", "procedural_memory")' },
-                { title: '检索操作', value: 'store.get(namespace, "teaching_principles")' },
-                { title: '检索数据', value: '脚手架教学、主动学习策略' },
-                { title: '数据用途', value: '指导大模型生成响应' }
-            ]);
+                // 步骤3：显示响应
+                await new Promise(resolve => setTimeout(resolve, 800));
 
-            // 步骤5：构建上下文集成
-            await new Promise(resolve => setTimeout(resolve, 700));
+                addStep('✅ 收到后端响应', 'flow', [
+                    { title: '响应状态', value: '<span class="success">成功</span>' },
+                    { title: '响应内容', value: data.response.substring(0, 200) + '...' }
+                ]);
 
-            addStep('🔧 构建上下文集成', 'flow', [
-                { title: '集成内容', value: '语义记忆 + 情景记忆 + 程序记忆' },
-                { title: '上下文数据', value: '用户画像 + 学习历史 + 教学策略' },
-                { title: '上下文大小', value: '~500 tokens' },
-                { title: '集成方式', value: 'LangGraph StateGraph 自动整合' },
-                { title: '传递目标', value: '大模型 (LLM)' }
-            ]);
+                // 步骤4：显示完整响应
+                await new Promise(resolve => setTimeout(resolve, 600));
 
-            // 步骤6：调用大模型
-            await new Promise(resolve => setTimeout(resolve, 1000));
+                addStep('📄 完整学习建议', 'llm', [
+                    { title: '个性化建议', value: data.response }
+                ]);
 
-            addStep('🤖 调用大模型 (LLM) - 生成响应', 'llm', [
-                { title: '模型', value: 'OpenAI GPT-3.5-turbo' },
-                { title: 'API端点', value: 'https://api.openai.com/v1/chat/completions' },
-                { title: '输入Prompt', value: '系统提示 + 上下文 + 用户问题' },
-                { title: '温度参数', value: '0.7 (平衡创造性和准确性)' },
-                { title: 'Token消耗', value: '预计 120-200 tokens' },
-                { title: '生成内容', value: '个性化学习建议 + 代码示例' }
-            ]);
+            } catch (error) {
+                console.error('Error:', error);
 
-            // 步骤7：大模型响应
-            await new Promise(resolve => setTimeout(resolve, 1500));
+                // 显示错误信息
+                addStep('❌ 请求失败', 'flow', [
+                    { title: '错误类型', value: '<span class="error">API 调用失败</span>' },
+                    { title: '错误信息', value: error.message },
+                    { title: '可能原因', value: '1. 后端服务未启动\n2. 网络连接问题\n3. 服务器内部错误' }
+                ]);
 
-            const mockResponse = generateMockResponse(message, userName, userLevel);
-
-            addStep('💭 大模型响应生成', 'llm', [
-                { title: '生成状态', value: '<span class="success">成功</span>' },
-                { title: '响应内容', value: mockResponse.substring(0, 150) + '...' },
-                { title: '响应类型', value: 'Markdown 格式 + 代码示例' },
-                { title: '响应时间', value: '1.2 秒' },
-                { title: '质量指标', value: '相关性 + 准确性评估' }
-            ]);
-
-            // 步骤8：更新情景记忆
-            await new Promise(resolve => setTimeout(resolve, 600));
-
-            addStep('💾 更新情景记忆 - 保存新交互', 'memory', [
-                { title: '记忆类型', value: '<span class="highlight">情景记忆 (Episodic Memory)</span>' },
-                { title: '操作类型', value: '保存新交互记录' },
-                { title: '存储后端', value: 'InMemoryStore' },
-                { title: '命名空间', value: '(user_id, "episodic_memory")' },
-                { title: '存储操作', value: 'store.put(namespace, interaction_id, data)' },
-                { title: '存储数据', value: '问题 + 答案 + 时间戳 + 分类' },
-                { title: '数据用途', value: '维持对话连续性，支持个性化' }
-            ]);
-
-            // 步骤9：流程完成
-            await new Promise(resolve => setTimeout(resolve, 400));
-
-            addStep('✅ 交互流程完成', 'flow', [
-                { title: '总耗时', value: '5.8 秒' },
-                { title: '涉及记忆', value: '<span class="highlight">3种类型</span> (语义、情景、程序)' },
-                { title: '记忆操作次数', value: '4次 (检索×3 + 保存×1)' },
-                { title: 'LLM调用次数', value: '1次' },
-                { title: '流程控制', value: 'LangGraph 自动化 9个步骤' },
-                { title: '用户体验', value: '等待用户反馈和下次请求' }
-            ]);
+                alert(`请求失败: ${error.message}\n\n请确保 Flask 后端正在运行！`);
+            }
         }
 
-        function generateMockResponse(message, userName, userLevel) {
-            return `你好 ${userName}！
+        // ==================== 新增的API调用函数 ====================
 
-基于你的水平 (${userLevel})，我建议：
+        async function recordSession() {
+            const topic = document.getElementById('sessionTopic').value;
+            const duration = document.getElementById('sessionDuration').value;
+            const notes = document.getElementById('sessionNotes').value;
 
-📚 学习路径：
-1. Python 基础语法（变量、数据类型、控制流）
-2. 数据结构（列表、字典、集合）
-3. 函数和模块化编程
-4. 实际项目练习
+            if (!topic) {
+                alert('请填写学习主题');
+                return;
+            }
 
-💪 实践建议：
-- 每天坚持写代码
-- 完成小项目练习
-- 参与编程社区
+            addStep('📝 记录学习会话', 'flow', [
+                { title: '学习主题', value: topic },
+                { title: '学习时长', value: duration + ' 分钟' || '未记录' },
+                { title: '学习笔记', value: notes || '无笔记' },
+                { title: 'API 端点', value: '/record_session' }
+            ]);
 
-🎯 推荐资源：
-- Python 官方教程
-- LeetCode 练习平台
-- GitHub 开源项目学习
+            try {
+                const response = await fetch('/record_session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        topic: topic,
+                        duration: parseInt(duration) || 0,
+                        notes: notes
+                    })
+                });
 
-需要我详细解释任何部分吗？`;
+                const data = await response.json();
+
+                addStep('✅ 会话记录成功', 'memory', [
+                    { title: '会话ID', value: data.session_id },
+                    { title: '记忆类型', value: '<span class="highlight">情景记忆 (Episodic Memory)</span>' },
+                    { title: '存储状态', value: '已保存到情景记忆' }
+                ]);
+
+                alert('✅ 学习会话记录成功！');
+
+            } catch (error) {
+                console.error('Error:', error);
+                addStep('❌ 会话记录失败', 'flow', [
+                    { title: '错误类型', value: '<span class="error">API 调用失败</span>' },
+                    { title: '错误信息', value: error.message }
+                ]);
+                alert(`记录失败: ${error.message}`);
+            }
+        }
+
+        async function getHistory() {
+            addStep('📚 获取学习历史', 'memory', [
+                { title: '记忆类型', value: '<span class="highlight">情景记忆 (Episodic Memory)</span>' },
+                { title: 'API 端点', value: '/get_history' },
+                { title: '请求类型', value: 'GET' }
+            ]);
+
+            try {
+                const response = await fetch('/get_history', {
+                    method: 'GET'
+                });
+
+                const data = await response.json();
+
+                displayData('📚 学习历史', JSON.stringify(data, null, 2));
+
+                addStep('✅ 历史数据获取成功', 'memory', [
+                    { title: '记录数量', value: (data.history?.length || 0) + ' 条' },
+                    { title: '数据状态', value: '<span class="success">成功检索</span>' }
+                ]);
+
+            } catch (error) {
+                console.error('Error:', error);
+                addStep('❌ 获取历史失败', 'flow', [
+                    { title: '错误信息', value: error.message }
+                ]);
+                alert(`获取历史失败: ${error.message}`);
+            }
+        }
+
+        async function getStats() {
+            addStep('📊 获取学习统计', 'flow', [
+                { title: 'API 端点', value: '/get_stats' },
+                { title: '请求类型', value: 'GET' }
+            ]);
+
+            try {
+                const response = await fetch('/get_stats', {
+                    method: 'GET'
+                });
+
+                const data = await response.json();
+
+                displayData('📊 学习统计', JSON.stringify(data, null, 2));
+
+                addStep('✅ 统计数据获取成功', 'flow', [
+                    { title: '总学习会话', value: (data.stats?.total_sessions || 0) + ' 次' },
+                    { title: '总交互次数', value: (data.stats?.total_interactions || 0) + ' 次' },
+                    { title: '用户画像', value: data.stats?.profile || '未创建' }
+                ]);
+
+            } catch (error) {
+                console.error('Error:', error);
+                addStep('❌ 获取统计失败', 'flow', [
+                    { title: '错误信息', value: error.message }
+                ]);
+                alert(`获取统计失败: ${error.message}`);
+            }
+        }
+
+        async function getSystemInfo() {
+            addStep('⚙️ 获取系统信息', 'flow', [
+                { title: 'API 端点', value: '/system_info' },
+                { title: '请求类型', value: 'GET' }
+            ]);
+
+            try {
+                const response = await fetch('/system_info', {
+                    method: 'GET'
+                });
+
+                const data = await response.json();
+
+                displayData('⚙️ 系统信息', JSON.stringify(data, null, 2));
+
+                addStep('✅ 系统信息获取成功', 'flow', [
+                    { title: '系统名称', value: data.info?.system_name || '未知' },
+                    { title: '版本', value: data.info?.version || '未知' },
+                    { title: 'LLM可用', value: data.info?.llm_available ? '<span class="success">是</span>' : '<span class="error">否</span>' },
+                    { title: '记忆类型', value: data.info?.memory_types?.join(', ') || '未知' }
+                ]);
+
+            } catch (error) {
+                console.error('Error:', error);
+                addStep('❌ 获取系统信息失败', 'flow', [
+                    { title: '错误信息', value: error.message }
+                ]);
+                alert(`获取系统信息失败: ${error.message}`);
+            }
+        }
+
+        function displayData(title, content) {
+            const display = document.getElementById('dataDisplay');
+            const titleEl = document.getElementById('dataTitle');
+            const contentEl = document.getElementById('dataContent');
+
+            titleEl.textContent = title;
+            contentEl.textContent = content;
+            display.style.display = 'block';
         }
 
         window.onload = function() {

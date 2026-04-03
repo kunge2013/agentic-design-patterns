@@ -1,0 +1,84 @@
+tags:
+  - 系统管理
+summary: 自动改进系统
+description: |
+  基于当前反馈数据和评估结果，自动执行系统改进。
+
+  ## 改进流程
+  1. **学习阶段**：分析反馈数据
+  2. **评估阶段**：识别改进点
+  3. **实施阶段**：执行改进措施。
+
+  ## 改进类型
+  - 策略参数调整
+  - 知识库扩充
+  - 回复模板优化
+  - 权重重新分配
+
+  ## 使用场景
+  - 定期系统优化
+  - 性能下降时快速修复
+  - 批量反馈处理后
+produces:
+  - application/json
+responses:
+  200:
+    description: 改进成功
+    schema:
+      $ref: '#/definitions/ImproveResponse'
+definitions:
+  ImproveResponse:
+    type: object
+    properties:
+      learning:
+        type: object
+        description: 学习阶段结果
+        properties:
+          learned:
+            type: boolean
+            description: 是否进行了学习
+            example: true
+          version:
+            type: integer
+            description: 新版本号
+            example: 2
+          message:
+            type: string
+            description: 学习结果描述
+            example: "已根据10条反馈数据调整策略"
+          changes:
+            type: array
+            description: 具体改进项
+            items:
+              type: string
+            example: ["调整知识库权重", "优化回复模板"]
+      evaluation:
+        type: object
+        description: 评估阶段结果
+        properties:
+          overall_score:
+            type: number
+            format: float
+            description: 综合得分
+            example: 0.85
+          areas_to_improve:
+            type: array
+            items:
+              type: string
+            example: ["提高回复准确性"]
+      implementation:
+        type: object
+        description: 实施阶段结果
+        properties:
+          implemented:
+            type: array
+            description: 已实施的改进
+            items:
+              type: string
+            example: ["扩充产品知识库", "调整策略权重"]
+          skipped:
+            type: array
+            description: 跳过的改进
+            items:
+              type: string
+            example: ["无需调整参数"]

@@ -1,0 +1,75 @@
+tags:
+  - 客服对话
+summary: 处理用户问题
+description: |
+  接收用户问题并生成智能回复。系统会先识别问题类型，
+  然后从知识库或使用大语言模型生成回复。
+
+  ## 功能特点
+  - 基于知识库的快速回答
+  - 大语言模型兜底
+  - 多用户会话支持
+  - 问题类型自动识别
+
+  ## 使用场景
+  - 产品咨询
+  - 价格查询
+  - 技术支持
+  - 配送问题
+  - 退款咨询
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/AskRequest'
+responses:
+  200:
+    description: 请求成功
+    schema:
+      $ref: '#/definitions/AskResponse'
+  400:
+    description: 请求参数错误
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+definitions:
+  AskRequest:
+    type: object
+    required:
+      - question
+    properties:
+      question:
+        type: string
+        description: 用户提问内容
+        minLength: 1
+        maxLength: 1000
+        example: "你们的产品有什么特点？"
+      user_id:
+        type: string
+        description: 用户ID（可选，用于会话管理）
+        pattern: '^[a-zA-Z0-9_-]+$'
+        example: "user1"
+  AskResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+        example: true
+      response:
+        type: string
+        description: 客服回复内容
+        example: "我们提供多种智能产品，包括AI助手、自动化工具、数据分析平台等。"
+      question_type:
+        type: string
+        description: 问题类型
+        enum: [product, pricing, technical, shipping, refund, other]
+        example: "product"
+      timestamp:
+        type: string
+        format: date-time
+        description: 响应时间
+        example: "2024-01-01T12:00:00Z"

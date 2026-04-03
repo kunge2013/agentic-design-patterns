@@ -67,6 +67,10 @@ sudo dpkg -i pandoc-3.2-1-amd64.deb
     - 4. 项目框架,要求项目用flask框架，可以通过web 界面访问，且界面绘制项目的整体运作流程，如果涉及langgraph 可以给出到web界面
     - 5. 设计理念，要求每次跟其他 对象(agent, 大模型, 记忆, 工具调用, 或调用api,mcp,skills,等工具)调用都需要输出节点操作过程(入参，出参 内容)，
     便于排查问题，通过流程图形式展示过程信息，入参/出参用markdown 代码块输出，且要求，每个节点给一个tips 显示代码文件名+方法名(filename#methodName)
+    - 6. 添加swagger 依赖 "lasgger" 支持swagger 接口访问,所有api接口都自动配置暴露出来，便于自测，接口 http://localhost:5000/api/docs
+      - 1. Swagger API 文档配置说明 本项目使用 **Flasgger** 和 **装饰器注解** 的方式配置 Swagger API 文档。 接口文档位置 practical/docs/api_xxx.yml        # xx接口文档2. 装饰器注解配置使用 `@swag_from` 装饰器从外部 YAML 文件加载文档
+      - 2. 接口文档 必须严格按照 ymal 格式，最好生成完成后自查下是否为标准yaml
+      - 3. 严格按照标准的swagger格式生成文档 
 ### Content Directories
 - `chapters/` - Translated Chinese markdown files
 - `original/` - Original English markdown files

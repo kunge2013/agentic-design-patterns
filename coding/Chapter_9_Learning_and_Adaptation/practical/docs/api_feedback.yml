@@ -1,0 +1,86 @@
+tags:
+  - 用户反馈
+summary: 提交用户反馈
+description: |
+  接收用户对系统回复的评价和反馈信息，
+  系统会根据反馈进行学习和策略调整。
+
+  ## 反馈机制
+  - 评分范围：1-5星
+  - 自动学习：基于反馈调整回复策略
+  - 持续优化：系统性能随时间提升
+
+  ## 学习效果
+  - 高分反馈：巩固当前策略
+  - 低分反馈：触发策略调整
+  - 记录分析：用于后续优化
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/FeedbackRequest'
+responses:
+  200:
+    description: 反馈提交成功
+    schema:
+      $ref: '#/definitions/FeedbackResponse'
+  400:
+    description: 请求参数错误
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+definitions:
+  FeedbackRequest:
+    type: object
+    required:
+      - question
+      - response
+    properties:
+      user_id:
+        type: string
+        description: 用户ID
+        example: "user1"
+      question:
+        type: string
+        description: 用户问题
+        example: "你们的产品有什么特点？"
+      response:
+        type: string
+        description: 系统回复
+        example: "我们提供多种智能产品..."
+      rating:
+        type: integer
+        description: 评分（1-5星）
+        minimum: 1
+        maximum: 5
+        example: 4
+      feedback_text:
+        type: string
+        description: 反馈内容（可选）
+        example: "回答很详细，谢谢"
+  FeedbackResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+        example: true
+      learning_result:
+        type: object
+        description: 学习结果
+        properties:
+          learned:
+            type: boolean
+            description: 是否进行了学习
+            example: true
+          message:
+            type: string
+            description: 学习结果描述
+            example: "已根据反馈调整策略"
+          version:
+            type: integer
+            description: 当前版本号
+            example: 1
