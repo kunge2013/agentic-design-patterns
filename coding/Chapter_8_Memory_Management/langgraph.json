@@ -1,0 +1,77 @@
+{
+  "nodes": [
+    {
+      "id": "__start__",
+      "type": "runnable",
+      "data": {
+        "id": [
+          "langgraph",
+          "_internal",
+          "_runnable",
+          "RunnableCallable"
+        ],
+        "name": "__start__"
+      }
+    },
+    {
+      "id": "retrieve_memory",
+      "type": "runnable",
+      "data": {
+        "id": [
+          "langgraph",
+          "_internal",
+          "_runnable",
+          "RunnableCallable"
+        ],
+        "name": "retrieve_memory"
+      }
+    },
+    {
+      "id": "process_with_context",
+      "type": "runnable",
+      "data": {
+        "id": [
+          "langgraph",
+          "_internal",
+          "_runnable",
+          "RunnableCallable"
+        ],
+        "name": "process_with_context"
+      }
+    },
+    {
+      "id": "update_memory",
+      "type": "runnable",
+      "data": {
+        "id": [
+          "langgraph",
+          "_internal",
+          "_runnable",
+          "RunnableCallable"
+        ],
+        "name": "update_memory"
+      }
+    },
+    {
+      "id": "__end__"
+    }
+  ],
+  "edges": [
+    {
+      "source": "__start__",
+      "target": "retrieve_memory"
+    },
+    {
+      "source": "process_with_context",
+      "target": "update_memory"
+    },
+    {
+      "source": "retrieve_memory",
+      "target": "process_with_context"
+    },
+    {
+      "source": "update_memory",
+      "target": "__end__"
+    }
+  ]
+}

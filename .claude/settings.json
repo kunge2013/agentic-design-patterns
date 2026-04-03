@@ -21,7 +21,8 @@
       "Bash(python -m py_compile /home/fk/workspace/github/agentic-design-patterns/coding/Chapter_6_Planning/3-research-planning-agent.py)",
       "Bash(python -c \":*)",
       "Read(//home/fk/workspace/workspace/github/agentic-design-patterns/chapters/**)",
-      "Bash(python3 -m py_compile coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py)"
+      "Bash(python3 -m py_compile coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py)",
+      "Bash(python3 -m py_compile coding/Chapter_7_Multi_Agent_Collaboration/*.py)"
     ],
     "additionalDirectories": [
       "/home/fk/workspace/github/agentic-design-patterns/coding"

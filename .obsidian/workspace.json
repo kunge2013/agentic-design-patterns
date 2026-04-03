@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "chapters/Chapter 7_ Multi-Agent Collaboration.md",
+                "file": "chapters/Chapter 8_ Memory Management.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chapter 7_ Multi-Agent Collaboration"
+              "title": "Chapter 8_ Memory Management"
             }
           }
         ]
@@ -185,26 +185,31 @@
   },
   "active": "62eb621014442745",
   "lastOpenFiles": [
-    "coding/Chapter_7_Multi_Agent_Collaboration/__pycache__/5_comprehensive_system.cpython-310.pyc",
-    "coding/Chapter_7_Multi_Agent_Collaboration/__pycache__",
-    "coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py.tmp.94209.1774969976157",
-    "coding/Chapter_7_Multi_Agent_Collaboration_SUMMARY.md.tmp.94209.1774969909083",
+    "coding/Chapter_8_Memory_Management_SUMMARY/Chapter_8_Memory_Management_SUMMARY.md",
+    "coding/Chapter_8_Memory_Management/Chapter_8_Memory_Management_SUMMARY.md",
+    "coding/Chapter_8_Memory_Management_SUMMARY/README.md",
+    "coding/Chapter_8_Memory_Management/6-agent-usage-demo.py",
+    "coding/Chapter_8_Memory_Management/langgraph_mermaid.md",
+    "coding/Chapter_8_Memory_Management/5-complete-visualization.py",
+    "coding/Chapter_8_Memory_Management/langgraph.json",
+    "coding/Chapter_8_Memory_Management/4-export-graph.py",
+    "coding/Chapter_8_Memory_Management/memory_agent_graph.md",
+    "coding/Chapter_8_Memory_Management/3-langgraph-visualization.py",
+    "chapters/Chapter 8_ Memory Management.md",
+    "chapters/Chapter 7_ Multi-Agent Collaboration.md",
+    "coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py.tmp.7955.1775048611878",
+    "coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py.tmp.7955.1775048556127",
+    "coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py.tmp.7955.1775048484675",
+    "coding/Chapter_7_Multi_Agent_Collaboration/4_critic_reviewer.py.tmp.7955.1775048425190",
+    "coding/Chapter_7_Multi_Agent_Collaboration/4_critic_reviewer.py.tmp.7955.1775048358367",
+    "coding/Chapter_7_Multi_Agent_Collaboration/Chapter_7_Multi_Agent_Collaboration_SUMMARY.md",
     "coding/Chapter_7_Multi_Agent_Collaboration_SUMMARY.md",
-    "coding/Chapter_7_Multi_Agent_Collaboration_SUMMARY.md.tmp.94209.1774969857634",
     "coding/Chapter_7_Multi_Agent_Collaboration/README.md",
-    "coding/Chapter_7_Multi_Agent_Collaboration/README.md.tmp.94209.1774969636617",
-    "coding/Chapter_7_Multi_Agent_Collaboration/requirements.txt",
-    "coding/Chapter_7_Multi_Agent_Collaboration/requirements.txt.tmp.94209.1774969552967",
-    "coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py",
-    "coding/Chapter_7_Multi_Agent_Collaboration/5_comprehensive_system.py.tmp.94209.1774969536960",
-    "coding/Chapter_7_Multi_Agent_Collaboration/4_critic_reviewer.py",
     "chapters/Chapter 20_ Prioritization.md",
     "chapters/Chapter 13_ Human-in-the-Loop.md",
     "chapters/Chapter 11_ Goal Setting and Monitoring.md",
     "chapters/Chapter 10_ Model Context Protocol (MCP).md",
     "chapters/Chapter 9_ Learning and Adaptation.md",
-    "chapters/Chapter 8_ Memory Management.md",
-    "chapters/Chapter 7_ Multi-Agent Collaboration.md",
     "chapters/Chapter 6_ Planning.md",
     "coding/Chapter_6_Planning/Chapter_6_Planning_SUMMARY.md",
     "coding/Chapter_6_Planning/README.md",
@@ -215,11 +220,6 @@
     "coding/Chapter_3_Parallelization_SUMMARY.md",
     "coding/Chapter_3_Parallelization/README.md",
     "coding/Chapter_1_Prompt_Chaining/README.md",
-    "coding/Chapter_1_Prompt_Chaining/Chapter_1_Prompt_Chaining_SUMMARY.md",
-    "chapters/Chapter 2_ Routing.md",
-    "chapters/Chapter 1_ Prompt Chaining.md",
-    "CLAUDE.md",
-    "chapters/Appendix G -  Coding agents.md",
-    "chapters/Appendix F  - Under the Hood_ An Inside Look at the Agents' Reasoning Engines.md"
+    "coding/Chapter_1_Prompt_Chaining/Chapter_1_Prompt_Chaining_SUMMARY.md"
   ]
 }
