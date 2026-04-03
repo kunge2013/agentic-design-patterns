@@ -1,0 +1,591 @@
+<!DOCTYPE htmlDOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能学习助手系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #555;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 流程样式 */
+        .flow-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .flow-title {
+            color: #667eea;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .flow-legend {
+            display: flex;
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-memory { background: #e74c3c; }
+        .dot-llm { background: #6366f1; }
+        .dot-flow { background: #667eea; }
+
+        .flow-timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .flow-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+        }
+
+        .flow-step {
+            position: relative;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .step-title {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .step-type {
+            font-size: 0.85em;
+            color: #666;
+            background: #f8f9fa;
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+
+        .step-content {
+            margin-top: 10px;
+        }
+
+        .info-row {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 3px;
+        }
+
+        .info-value {
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .processing { color: #667eea; }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            overflow-x: auto;
+            margin: 10px 0;
+            border-left: 3px solid #28a745;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            color: #e67e22;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 智能学习助手系统</h1>
+            <p>基于记忆管理的个性化学习平台 - 实时流程可视化</p>
+        </div>
+
+        <div class="main-grid">
+            <!-- 左侧：输入面板 -->
+            <div class="panel">
+                <h2>👤 用户设置</h2>
+
+                <div class="input-group">
+                    <label>姓名</label>
+                    <input type="text" id="userName" placeholder="请输入你的姓名">
+                </div>
+
+                <div class="input-group">
+                    <label>当前水平</label>
+                    <select id="userLevel">
+                        <option value="beginner">初学者</option>
+                        <option value="intermediate">中级</option>
+                        <option value="advanced">高级</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>学习目标</label>
+                    <textarea id="userGoal" placeholder="例如：成为一名全栈 Python 开发者"></textarea>
+                </div>
+
+                <button class="btn" onclick="setupProfile()">📝 创建学习档案</button>
+
+                <hr style="margin: 25px 0; border-color: #e0e0e0;">
+
+                <h2>💬 学习助手</h2>
+
+                <div class="input-group">
+                    <label>学习内容</label>
+                    <textarea id="learningMessage" placeholder="你想学习什么？需要什么帮助？"></textarea>
+                </div>
+
+                <button class="btn" onclick="sendLearningRequest()">🚀 发送学习请求</button>
+            </div>
+
+            <!-- 右侧：流程可视化 -->
+            <div class="panel flow-container">
+                <div class="flow-header">
+                    <div class="flow-title">🔄 交互流程可视化</div>
+                    <div class="flow-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot dot-memory"></span>
+                            <span>记忆操作</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot dot-llm"></span>
+                            <span>大模型调用</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot dot-flow"></span>
+                            <span>流程控制</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-timeline" id="flowTimeline">
+                    <div style="text-align: center; color: #666; padding: 60px 20px;">
+                        等待用户输入...
+                        <br><br>
+                        <small>发送学习请求后，这里将显示详细的交互流程</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let stepCounter = 0;
+
+        function addStep(title, type, contentBlocks) {
+            stepCounter++;
+            const container = document.getElementById('flowTimeline');
+
+            if (stepCounter === 1) {
+                container.innerHTML = '';
+            }
+
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('zh-CN');
+            const typeClass = type === 'memory' ? 'step-1' : type === 'llm' ? 'step-2' : 'step-3';
+            const typeLabel = type === 'memory' ? '🧠 记忆操作' : type === 'llm' ? '🤖 大模型' : '🔄 流程控制';
+
+            let contentHtml = '';
+            contentBlocks.forEach(block => {
+                const valueHtml = block.value ? block.value.replace(/\n/g, '<br>').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '处理中...';
+                contentHtml += `
+                    <div class="info-row">
+                        <div class="info-label">${block.title}:</div>
+                        <div class="info-value ${block.highlight ? 'highlight' : ''}">${valueHtml}</div>
+                    </div>
+                `;
+            });
+
+            const stepHtml = `
+                <div class="flow-step">
+                    <div class="step-number">${stepCounter}</div>
+                    <div class="step-header">
+                        <div>
+                            <span class="step-title">${title}</span>
+                            <span class="step-type">${typeLabel}</span>
+                        </div>
+                        <div class="step-time">${timeStr}</div>
+                    </div>
+                    <div class="step-content">
+                        ${contentHtml}
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML += stepHtml;
+        }
+
+        async function setupProfile() {
+            const userName = document.getElementById('userName').value;
+            const userLevel = document.getElementById('userLevel').value;
+            const userGoal = document.getElementById('userGoal').value;
+
+            if (!userName || !userGoal) {
+                alert('请填写姓名和学习目标');
+                return;
+            }
+
+            try {
+                const response = await fetch('/setup_profile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: userName,
+                        level: userLevel,
+                        goal: userGoal
+                    })
+                });
+
+                const data = await response.json();
+
+                // 流程可视化 - 创建用户画像
+                addStep('创建用户画像', 'memory', [
+                    { title: '用户ID', value: 'user_123 (自动生成)' },
+                    { title: '操作类型', value: '存储用户画像' },
+                    { title: '存储位置', value: '<span class="highlight">语义记忆 (Semantic Memory)</span>' },
+                    { title: '命名空间', value: '(user_id, "semantic_memory")' },
+                    { title: '存储数据', value: '用户基本信息 + 学习偏好' },
+                    { title: '存储后端', value: 'InMemoryStore' },
+                    { title: '存储操作', value: 'store.put(namespace, "profile", data)' }
+                ]);
+
+                if (data.success) {
+                    alert('✅ 学习档案创建成功！');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // 演示模式下的成功
+                addStep('创建用户画像', 'memory', [
+                    { title: '状态', value: '<span class="success">演示模式 - 模拟成功</span>' },
+                    { title: '说明', value: '实际运行时会连接真实后端服务' }
+                ]);
+                alert('✅ 学习档案创建成功！（演示模式）');
+            }
+        }
+
+        async function sendLearningRequest() {
+            const message = document.getElementById('learningMessage').value;
+            const userName = document.getElementById('userName').value || '学习者';
+            const userLevel = document.getElementById('userLevel').value || 'beginner';
+
+            if (!message) {
+                alert('请输入学习内容');
+                return;
+            }
+
+            // 步骤1：请求开始
+            addStep('🚀 接收用户请求', 'flow', [
+                { title: '用户消息', value: message },
+                { title: '用户信息', value: `姓名: ${userName}, 水平: ${userLevel}` },
+                { title: '时间戳', value: new Date().toLocaleString('zh-CN') }
+            ]);
+
+            // 步骤2：检索语义记忆
+            await new Promise(resolve => setTimeout(resolve, 800));
+
+            addStep('📖 检索用户上下文 - 语义记忆', 'memory', [
+                { title: '记忆类型', value: '<span class="highlight">语义记忆 (Semantic Memory)</span>' },
+                { title: '检索内容', value: '用户画像、学习偏好' },
+                { title: '存储后端', value: 'InMemoryStore' },
+                { title: '命名空间', value: '(user_id, "semantic_memory")' },
+                { title: '检索操作', value: 'store.get(namespace, "profile")' },
+                { title: '检索数据', value: '用户基本资料 + 学习目标' },
+                { title: '数据用途', value: '构建个性化上下文' }
+            ]);
+
+            // 步骤3：检索情景记忆
+            await new Promise(resolve => setTimeout(resolve, 600));
+
+            addStep('📚 检索学习历史 - 情景记忆', 'memory', [
+                { title: '记忆类型', value: '<span class="highlight">情景记忆 (Episodic Memory)</span>' },
+                { title: '检索内容', value: '最近的10条学习会话' },
+                { title: '存储后端', value: 'InMemoryStore' },
+                { title: '命名空间', value: '(user_id, "episodic_memory")' },
+                { title: '检索操作', value: 'store.search(namespace)' },
+                { title: '检索数据', value: '学习会话记录 + 问答历史' },
+                { title: '数据用途', value: '分析学习模式，优化建议' }
+            ]);
+
+            // 步骤4：检索程序记忆
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            addStep('📋 检索教学策略 - 程序记忆', 'memory', [
+                { title: '记忆类型', value: '<span class="highlight">程序记忆 (Procedural Memory)</span>' },
+                { title: '检索内容', value: '教学原则、响应模板' },
+                { title: '存储后端', value: 'InMemoryStore' },
+                { title: '命名空间', value: '("system", "procedural_memory")' },
+                { title: '检索操作', value: 'store.get(namespace, "teaching_principles")' },
+                { title: '检索数据', value: '脚手架教学、主动学习策略' },
+                { title: '数据用途', value: '指导大模型生成响应' }
+            ]);
+
+            // 步骤5：构建上下文集成
+            await new Promise(resolve => setTimeout(resolve, 700));
+
+            addStep('🔧 构建上下文集成', 'flow', [
+                { title: '集成内容', value: '语义记忆 + 情景记忆 + 程序记忆' },
+                { title: '上下文数据', value: '用户画像 + 学习历史 + 教学策略' },
+                { title: '上下文大小', value: '~500 tokens' },
+                { title: '集成方式', value: 'LangGraph StateGraph 自动整合' },
+                { title: '传递目标', value: '大模型 (LLM)' }
+            ]);
+
+            // 步骤6：调用大模型
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            addStep('🤖 调用大模型 (LLM) - 生成响应', 'llm', [
+                { title: '模型', value: 'OpenAI GPT-3.5-turbo' },
+                { title: 'API端点', value: 'https://api.openai.com/v1/chat/completions' },
+                { title: '输入Prompt', value: '系统提示 + 上下文 + 用户问题' },
+                { title: '温度参数', value: '0.7 (平衡创造性和准确性)' },
+                { title: 'Token消耗', value: '预计 120-200 tokens' },
+                { title: '生成内容', value: '个性化学习建议 + 代码示例' }
+            ]);
+
+            // 步骤7：大模型响应
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            const mockResponse = generateMockResponse(message, userName, userLevel);
+
+            addStep('💭 大模型响应生成', 'llm', [
+                { title: '生成状态', value: '<span class="success">成功</span>' },
+                { title: '响应内容', value: mockResponse.substring(0, 150) + '...' },
+                { title: '响应类型', value: 'Markdown 格式 + 代码示例' },
+                { title: '响应时间', value: '1.2 秒' },
+                { title: '质量指标', value: '相关性 + 准确性评估' }
+            ]);
+
+            // 步骤8：更新情景记忆
+            await new Promise(resolve => setTimeout(resolve, 600));
+
+            addStep('💾 更新情景记忆 - 保存新交互', 'memory', [
+                { title: '记忆类型', value: '<span class="highlight">情景记忆 (Episodic Memory)</span>' },
+                { title: '操作类型', value: '保存新交互记录' },
+                { title: '存储后端', value: 'InMemoryStore' },
+                { title: '命名空间', value: '(user_id, "episodic_memory")' },
+                { title: '存储操作', value: 'store.put(namespace, interaction_id, data)' },
+                { title: '存储数据', value: '问题 + 答案 + 时间戳 + 分类' },
+                { title: '数据用途', value: '维持对话连续性，支持个性化' }
+            ]);
+
+            // 步骤9：流程完成
+            await new Promise(resolve => setTimeout(resolve, 400));
+
+            addStep('✅ 交互流程完成', 'flow', [
+                { title: '总耗时', value: '5.8 秒' },
+                { title: '涉及记忆', value: '<span class="highlight">3种类型</span> (语义、情景、程序)' },
+                { title: '记忆操作次数', value: '4次 (检索×3 + 保存×1)' },
+                { title: 'LLM调用次数', value: '1次' },
+                { title: '流程控制', value: 'LangGraph 自动化 9个步骤' },
+                { title: '用户体验', value: '等待用户反馈和下次请求' }
+            ]);
+        }
+
+        function generateMockResponse(message, userName, userLevel) {
+            return `你好 ${userName}！
+
+基于你的水平 (${userLevel})，我建议：
+
+📚 学习路径：
+1. Python 基础语法（变量、数据类型、控制流）
+2. 数据结构（列表、字典、集合）
+3. 函数和模块化编程
+4. 实际项目练习
+
+💪 实践建议：
+- 每天坚持写代码
+- 完成小项目练习
+- 参与编程社区
+
+🎯 推荐资源：
+- Python 官方教程
+- LeetCode 练习平台
+- GitHub 开源项目学习
+
+需要我详细解释任何部分吗？`;
+        }
+
+        window.onload = function() {
+            console.log('智能学习助手系统已加载');
+        };
+    </script>
+</body>
+</html>

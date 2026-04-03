@@ -59,11 +59,14 @@ sudo dpkg -i pandoc-3.2-1-amd64.deb
   - 4.代码块: 摘要的agentic 范式中，需要带上完整的流程代码，便于理解范式如何使用，以及场景
   - 5.所以的llm配置都和 coding/Chapter_1_Prompt_Chaining/llm_config.py 一样
 - 5.实战演练
-  - 1.基于章节文件 + 摘要 + 代码示例，你自己想象一个实用的实战项目。并应用应用章节知识 并生成代码到 (coding/practical)，如果coding 下面的practical不存在，先创建
+  - 1.基于章节文件 + 摘要 + 代码示例，你自己构思一个实用的实战项目，并体现使用场景。并应用应用章节知识 并生成代码到 (coding/{xx章节}/practical)，如果coding 下面的practical不存在，先创建
   - 2.项目要求
-    - 1. 紧密结合章节内容，实战章节应用
+    - 1. 紧密结合章节内容,想象一个实用的业务场景，生成实战章节应用
     - 2. 项目模型配置和章节一样  coding/{xx章节}/llm_config.py,且复制到 practical 目录
     - 3. 生成项目要求有readme.md 说明如何使用范式，且需要有 "mermaid" 流程图，描述项目运行流程
+    - 4. 项目框架,要求项目用flask框架，可以通过web 界面访问，且界面绘制项目的整体运作流程，如果涉及langgraph 可以给出到web界面
+    - 5. 设计理念，要求每次跟其他 对象(agent, 大模型, 记忆, 工具调用, 或调用api,mcp,skills,等工具)调用都需要输出节点操作过程(入参，出参 内容)，
+    便于排查问题，通过流程图形式展示过程信息，入参/出参用markdown 代码块输出，且要求，每个节点给一个tips 显示代码文件名+方法名(filename#methodName)
 ### Content Directories
 - `chapters/` - Translated Chinese markdown files
 - `original/` - Original English markdown files
