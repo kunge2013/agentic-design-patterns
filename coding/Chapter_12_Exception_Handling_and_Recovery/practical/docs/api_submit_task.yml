@@ -1,0 +1,87 @@
+提交任务
+---
+提交新的任务到执行队列
+tags:
+  - 任务管理
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    description: 任务信息
+    required: true
+    schema:
+      type: object
+      required:
+        - name
+        - task_type
+      properties:
+        name:
+          type: string
+          description: 任务名称
+          example: "数据处理任务"
+        description:
+          type: string
+          description: 任务描述
+          example: "处理大量数据"
+        task_type:
+          type: string
+          description: 任务类型
+          example: "data_processing"
+        parameters:
+          type: object
+          description: 任务参数
+          example:
+            input_data: "data.csv"
+            output_format: "json"
+        retry_policy:
+          type: object
+          description: 重试策略
+          properties:
+            max_retries:
+              type: integer
+              description: 最大重试次数
+              example: 3
+            backoff_factor:
+              type: number
+              description: 退避因子
+              example: 2
+responses:
+  201:
+    description: 任务提交成功
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              example: "task_12345"
+            name:
+              type: string
+              example: "数据处理任务"
+            status:
+              type: string
+              example: "pending"
+        message:
+          type: string
+          example: "任务提交成功"
+  400:
+    description: 请求参数错误
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "缺少必需参数"
+  500:
+    description: 服务器内部错误

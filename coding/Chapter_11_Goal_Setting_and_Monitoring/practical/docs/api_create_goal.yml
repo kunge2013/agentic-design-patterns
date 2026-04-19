@@ -1,0 +1,93 @@
+创建目标
+---
+创建新的项目目标
+tags:
+  - 目标管理
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    description: 目标信息
+    required: true
+    schema:
+      type: object
+      required:
+        - title
+        - target_value
+        - deadline
+      properties:
+        title:
+          type: string
+          description: 目标标题
+          example: "完成项目开发"
+        description:
+          type: string
+          description: 目标描述
+          example: "在指定时间内完成所有功能开发"
+        target_value:
+          type: number
+          description: 目标值
+          example: 100
+        unit:
+          type: string
+          description: 单位
+          example: "%"
+        deadline:
+          type: string
+          format: date
+          description: 截止日期
+          example: "2026-04-30"
+        priority:
+          type: string
+          description: 优先级
+          enum: [high, medium, low]
+          example: "high"
+responses:
+  201:
+    description: 目标创建成功
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            goal_id:
+              type: string
+              example: "goal_12345"
+            title:
+              type: string
+              example: "完成项目开发"
+            status:
+              type: string
+              example: "active"
+        message:
+          type: string
+          example: "目标创建成功"
+  400:
+    description: 请求参数错误
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "缺少必需参数"
+  500:
+    description: 服务器内部错误
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "服务器内部错误"

@@ -1,0 +1,59 @@
+获取待审核列表
+---
+获取待人工审核的内容列表
+tags:
+  - 人工审核
+parameters:
+  - name: limit
+    in: query
+    type: integer
+    required: false
+    description: 返回数量限制
+    default: 10
+  - name: priority
+    in: query
+    type: string
+    required: false
+    description: 筛选优先级
+    enum: [high, medium, low]
+responses:
+  200:
+    description: 获取成功
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              review_id:
+                type: string
+                example: "review_12345"
+              content_type:
+                type: string
+                example: "text"
+              ai_result:
+                type: object
+                properties:
+                  decision:
+                    type: string
+                    example: "needs_review"
+                  risk_score:
+                    type: number
+                    example: 0.35
+              priority:
+                type: string
+                example: "high"
+              submitted_at:
+                type: string
+                format: date-time
+                example: "2026-04-11T12:00:00Z"
+        message:
+          type: string
+          example: "获取成功"
+  500:
+    description: 服务器内部错误

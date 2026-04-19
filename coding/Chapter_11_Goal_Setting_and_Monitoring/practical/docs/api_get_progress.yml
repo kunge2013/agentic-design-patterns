@@ -1,0 +1,71 @@
+获取目标进度
+---
+获取指定目标的执行进度
+tags:
+  - 目标监控
+parameters:
+  - name: goal_id
+    in: path
+    type: string
+    required: true
+    description: 目标ID
+responses:
+  200:
+    description: 获取成功
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            goal_id:
+              type: string
+              example: "goal_12345"
+            title:
+              type: string
+              example: "完成项目开发"
+            progress:
+              type: number
+              description: 进度百分比
+              example: 45.5
+            current_value:
+              type: number
+              example: 45.5
+            target_value:
+              type: number
+              example: 100
+            remaining:
+              type: number
+              description: 剩余进度
+              example: 54.5
+            status:
+              type: string
+              example: "in_progress"
+            milestones:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  completed:
+                    type: boolean
+        message:
+          type: string
+          example: "获取成功"
+  404:
+    description: 目标不存在
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "目标不存在"
+  500:
+    description: 服务器内部错误

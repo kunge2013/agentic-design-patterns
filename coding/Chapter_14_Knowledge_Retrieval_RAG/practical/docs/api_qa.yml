@@ -1,0 +1,101 @@
+知识问答
+---
+提问并基于知识库生成回答
+tags:
+  - RAG问答
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    description: 问题和检索参数
+    required: true
+    schema:
+      type: object
+      required:
+        - question
+      properties:
+        question:
+          type: string
+          description: 问题文本
+          example: "如何使用API接口？"
+        top_k:
+          type: integer
+          description: 检索结果数量
+          default: 5
+          example: 5
+        use_hybrid_search:
+          type: boolean
+          description: 是否使用混合检索
+          default: false
+          example: true
+        include_sources:
+          type: boolean
+          description: 是否包含知识来源
+          default: true
+          example: true
+responses:
+  200:
+    description: 问答成功
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            question:
+              type: string
+              example: "如何使用API接口？"
+            answer:
+              type: string
+              example: "使用API接口的步骤如下：1. 获取API密钥..."
+            sources:
+              type: array
+              items:
+                type: object
+                properties:
+                  document_id:
+                    type: string
+                    example: "doc_12345"
+                  document_name:
+                    type: string
+                    example: "api_guide.pdf"
+                  chunk_id:
+                    type: string
+                    example: "chunk_001"
+                  relevance_score:
+                    type: number
+                    example: 0.95
+            metadata:
+              type: object
+              properties:
+                retrieval_time:
+                  type: number
+                  example: 0.25
+                generation_time:
+                  type: number
+                  example: 1.5
+                total_time:
+                  type: number
+                  example: 1.75
+        message:
+          type: string
+          example: "问答成功"
+  400:
+    description: 请求参数错误
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "缺少必需参数"
+  500:
+    description: 服务器内部错误

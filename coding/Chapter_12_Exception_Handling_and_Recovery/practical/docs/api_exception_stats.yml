@@ -1,0 +1,41 @@
+获取异常统计
+---
+获取异常统计数据
+tags:
+  - 异常监控
+responses:
+  200:
+    description: 获取成功
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            total_exceptions:
+              type: integer
+              example: 150
+            exceptions_by_type:
+              type: object
+              additionalProperties:
+                type: integer
+              example:
+                timeout: 45
+                connection_error: 30
+                validation_error: 75
+            recovery_success_rate:
+              type: number
+              description: 恢复成功率
+              example: 0.85
+            avg_retry_count:
+              type: number
+              description: 平均重试次数
+              example: 2.3
+        message:
+          type: string
+          example: "获取成功"
+  500:
+    description: 服务器内部错误

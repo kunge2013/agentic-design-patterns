@@ -1,0 +1,70 @@
+查询任务状态
+---
+获取任务当前状态和进度
+tags:
+  - 任务管理
+parameters:
+  - name: task_id
+    in: path
+    type: string
+    required: true
+    description: 任务ID
+responses:
+  200:
+    description: 获取成功
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            task_id:
+              type: string
+              example: "task_12345"
+            name:
+              type: string
+              example: "数据处理任务"
+            status:
+              type: string
+              enum: [pending, running, completed, failed, retrying]
+              example: "running"
+            progress:
+              type: number
+              example: 50.0
+            created_at:
+              type: string
+              format: date-time
+              example: "2026-04-11T12:00:00Z"
+            started_at:
+              type: string
+              format: date-time
+              example: "2026-04-11T12:01:00Z"
+            error:
+              type: object
+              nullable: true
+              properties:
+                message:
+                  type: string
+                  example: "连接超时"
+                retry_count:
+                  type: integer
+                  example: 2
+        message:
+          type: string
+          example: "获取成功"
+  404:
+    description: 任务不存在
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "任务不存在"
+  500:
+    description: 服务器内部错误

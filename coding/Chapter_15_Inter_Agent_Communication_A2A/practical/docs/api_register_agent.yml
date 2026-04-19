@@ -1,0 +1,85 @@
+注册Agent
+---
+注册新的Agent到系统
+tags:
+  - Agent管理
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    description: Agent信息
+    required: true
+    schema:
+      type: object
+      required:
+        - agent_id
+        - agent_type
+        - endpoint
+      properties:
+        agent_id:
+          type: string
+          description: Agent ID
+          example: "data_analyzer_001"
+        agent_type:
+          type: string
+          description: Agent类型
+          example: "data_analyzer"
+        capabilities:
+          type: array
+          description: Agent能力列表
+          items:
+            type: string
+          example:
+            - "data_analysis"
+            - "statistics"
+        endpoint:
+          type: string
+          description: Agent连接端点
+          example: "ws://localhost:5001"
+        metadata:
+          type: object
+          description: 额外元数据
+          example:
+            version: "1.0.0"
+            status: "active"
+responses:
+  201:
+    description: Agent注册成功
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            agent_id:
+              type: string
+              example: "data_analyzer_001"
+            registered_at:
+              type: string
+              format: date-time
+              example: "2026-04-11T12:00:00Z"
+            status:
+              type: string
+              example: "active"
+        message:
+          type: string
+          example: "Agent注册成功"
+  400:
+    description: 请求参数错误
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "缺少必需参数"
+  500:
+    description: 服务器内部错误

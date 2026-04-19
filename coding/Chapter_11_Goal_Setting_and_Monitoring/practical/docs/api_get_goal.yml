@@ -1,0 +1,67 @@
+获取目标详情
+---
+获取指定目标的详细信息
+tags:
+  - 目标管理
+parameters:
+  - name: goal_id
+    in: path
+    type: string
+    required: true
+    description: 目标ID
+responses:
+  200:
+    description: 获取成功
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            goal_id:
+              type: string
+              example: "goal_12345"
+            title:
+              type: string
+              example: "完成项目开发"
+            description:
+              type: string
+              example: "在指定时间内完成所有功能开发"
+            target_value:
+              type: number
+              example: 100
+            current_value:
+              type: number
+              example: 45
+            unit:
+              type: string
+              example: "%"
+            deadline:
+              type: string
+              example: "2026-04-30"
+            status:
+              type: string
+              example: "active"
+            created_at:
+              type: string
+              format: date-time
+              example: "2026-04-11T12:00:00Z"
+        message:
+          type: string
+          example: "获取成功"
+  404:
+    description: 目标不存在
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "目标不存在"
+  500:
+    description: 服务器内部错误

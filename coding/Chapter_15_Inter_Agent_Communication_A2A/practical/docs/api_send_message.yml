@@ -1,0 +1,97 @@
+发送消息
+---
+向指定Agent发送消息
+tags:
+  - 消息通信
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    description: 消息内容
+    required: true
+    schema:
+      type: object
+      required:
+        - from_agent
+        - to_agent
+        - message_type
+        - content
+      properties:
+        from_agent:
+          type: string
+          description: 发送方Agent ID
+          example: "orchestrator"
+        to_agent:
+          type: string
+          description: 接收方Agent ID
+          example: "data_analyzer_001"
+        message_type:
+          type: string
+          enum: [task, response, notification, error]
+          description: 消息类型
+          example: "task"
+        content:
+          type: object
+          description: 消息内容
+          example:
+            task: "analyze_data"
+            data:
+              input: "data.csv"
+        priority:
+          type: string
+          enum: [high, normal, low]
+          description: 消息优先级
+          default: "normal"
+          example: "normal"
+responses:
+  200:
+    description: 消息发送成功
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            message_id:
+              type: string
+              example: "msg_12345"
+            sent_at:
+              type: string
+              format: date-time
+              example: "2026-04-11T12:00:00Z"
+            status:
+              type: string
+              example: "delivered"
+        message:
+          type: string
+          example: "消息发送成功"
+  400:
+    description: 请求参数错误
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "缺少必需参数"
+  404:
+    description: 目标Agent不存在
+    schema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "目标Agent不存在"
+  500:
+    description: 服务器内部错误
